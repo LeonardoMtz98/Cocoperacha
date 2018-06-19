@@ -19,6 +19,7 @@ import javax.inject.Named;
 @Named("controladorUsuario")
 @SessionScoped
 public class ControladorUsuario implements Serializable{
+    private Usuario usuario;
     @EJB
     private FachadaUsuario fachada;
 
@@ -27,6 +28,17 @@ public class ControladorUsuario implements Serializable{
     
     public FachadaUsuario getFachada() {
         return fachada;
+    }
+    
+    public Usuario getUsuario() {
+        if (usuario == null) {
+            usuario = new Usuario();
+        }
+        return usuario;
+    }
+    
+    public void crearUsuario() {
+        getFachada().create(usuario);
     }
     
     public List<Usuario> getUsuarios() {
