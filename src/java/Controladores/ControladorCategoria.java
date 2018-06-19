@@ -5,7 +5,7 @@
  */
 package Controladores;
 
-import Entities.Usuario;
+import Entities.Categoria;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -16,32 +16,33 @@ import javax.inject.Named;
  *
  * @author Leonardo Martinez
  */
-@Named("controladorUsuario")
+@Named("controladorCategoria")
 @SessionScoped
-public class ControladorUsuario implements Serializable{
-    private Usuario usuario;
+public class ControladorCategoria implements Serializable{
+    private Categoria categoria;
     @EJB
-    private FachadaUsuario fachada;
-
-    public ControladorUsuario() {
+    private FachadaCategoria fachada;
+    
+    public ControladorCategoria() {
+        
     }
     
-    public FachadaUsuario getFachada() {
+    public FachadaCategoria getFachada() {
         return fachada;
     }
     
-    public Usuario getUsuario() {
-        if (usuario == null) {
-            usuario = new Usuario();
+    public Categoria getCategoria() {
+        if (categoria == null) {
+            categoria = new Categoria();
         }
-        return usuario;
+        return categoria;
     }
     
-    public void crearUsuario() {
-        getFachada().create(usuario);
+    public void crearCategoria() {
+        getFachada().create(categoria);
     }
     
-    public List<Usuario> getUsuarios() {
+    public List<Categoria> getCategorias() {
         return getFachada().findAll();
     }
 }
