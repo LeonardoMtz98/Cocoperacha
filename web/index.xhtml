@@ -13,7 +13,7 @@
     </h:head>
     <h:body>
         Hello from Facelets
-        <div>
+        <div>Tabla
             <h:dataTable value="#{controladorUsuario.usuarios}" var="usuario" border="5" id="Tabla">
                 <h:column>
                     <f:facet name="header">
@@ -21,8 +21,14 @@
                     </f:facet>
                     <h:outputText value="#{usuario.correo}"/>
                 </h:column>
-            </h:dataTable>
-            
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="NickName"/>
+                    </f:facet>
+                    <h:outputText value="#{usuario.nickname}"/>
+                </h:column>
+            </h:dataTable>          
         </div>
     </h:body>
 </html>
