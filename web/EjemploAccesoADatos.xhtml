@@ -28,7 +28,13 @@
                     </f:facet>
                     <h:outputText value="#{usuario.nickname}"/>
                 </h:column>
-            </h:dataTable>          
+            </h:dataTable>       
+            <h:form>
+                <h:selectManyCheckbox value="#{controladorCategoria.buscadas}" layout="pageDirection">
+                    <f:selectItems value="#{controladorCategoria.categorias}" var = "categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.pkcategoria}"/>
+                </h:selectManyCheckbox>
+                <h:commandButton action="#{controladorCategoria.seBusca()}" value="✓"/>
+            </h:form>
         </div>  
     </h:body>
 </html>

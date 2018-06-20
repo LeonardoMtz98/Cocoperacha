@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2018 a las 05:44:41
+-- Tiempo de generación: 20-06-2018 a las 06:46:33
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `Cocoperacha`
+-- Base de datos: `cocoperacha`
 --
 
 -- --------------------------------------------------------
@@ -58,6 +58,15 @@ CREATE TABLE `envio` (
   `pkenvio` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `envio`
+--
+
+INSERT INTO `envio` (`pkenvio`, `nombre`) VALUES
+(1, 'Recoger'),
+(2, 'Punto Medio'),
+(3, 'Pagar Envio');
 
 -- --------------------------------------------------------
 
@@ -159,7 +168,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `envio`
 --
 ALTER TABLE `envio`
-  MODIFY `pkenvio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pkenvio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
