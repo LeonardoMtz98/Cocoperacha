@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Ejemplo Ingreso Datos</title>
+    </h:head>
+    <h:body>
+        Crear un usuario
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Correo: "/>
+                <h:inputText value="#{controladorUsuario.usuario.correo}"/>
+                <h:outputLabel value="Nickname: "/>
+                <h:inputText value="#{controladorUsuario.usuario.nickname}"/>
+                <h:outputLabel value="Direccion"/>
+                <h:inputText value="#{controladorUsuario.usuario.direccion}" />
+                <h:outputLabel value="Contraseña"/>
+                <h:inputSecret value="#{controladorUsuario.usuario.password}"/>
+            </h:panelGrid>
+            <h:commandButton action="#{controladorUsuario.crearUsuario()}" value="Crear usuario"/>
+        </h:form>
+    </h:body>
+</html>
+
