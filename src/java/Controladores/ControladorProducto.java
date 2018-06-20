@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -65,5 +66,16 @@ public class ControladorProducto implements Serializable{
             
             return (List<Producto>)consulta.getResultList();
         }
+    }
+    public Producto findProducto(int pk)
+    {
+        return getFachada().find(pk);
+    }
+    public String convertImg(int pk)
+    {
+        Producto producto =getFachada().find(pk);
+        byte[] photo = producto.getImagen();
+        String bphoto = Base64.getEncoder().encodeToString(photo);
+        return bphoto;
     }
 }
