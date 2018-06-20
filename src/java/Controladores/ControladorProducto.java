@@ -5,10 +5,44 @@
  */
 package Controladores;
 
+import Entities.Producto;
+import java.io.Serializable;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 /**
  *
- * @author Usuario
+ * @author Leonardo Martinez
  */
-public class ControladorProducto {
+@Named("controladorProducto")
+@SessionScoped
+public class ControladorProducto implements Serializable{
+    private Producto producto;
+    @EJB
+    private FachadaProducto fachada;
     
+    public ControladorProducto() {
+        
+    }
+    
+    public FachadaProducto getFachada() {
+        return fachada;
+    }
+    
+    public Producto getProducto() {
+        if (producto == null) {
+            producto = new Producto();
+        }
+        return producto;
+    }
+    
+    public void crearProducto() {
+        getFachada().create(producto);
+    }
+    
+    public List<Producto> getProductos() {
+        return getFachada().findAll();
+    }
 }

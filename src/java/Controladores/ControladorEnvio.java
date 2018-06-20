@@ -5,10 +5,44 @@
  */
 package Controladores;
 
+import Entities.Envio;
+import java.io.Serializable;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 /**
  *
- * @author Usuario
+ * @author Leonardo Martinez
  */
-public class ControladorEnvio {
+@Named("controladorEnvio")
+@SessionScoped
+public class ControladorEnvio implements Serializable{
+    private Envio envio;
+    @EJB
+    private FachadaEnvio fachada;
     
+    public ControladorEnvio() {
+        
+    }
+    
+    public FachadaEnvio getFachada() {
+        return fachada;
+    }
+    
+    public Envio getEnvio() {
+        if (envio == null) {
+            envio = new Envio();
+        }
+        return envio;
+    }
+    
+    public void crearEnvio() {
+        getFachada().create(envio);
+    }
+    
+    public List<Envio> getEnvios() {
+        return getFachada().findAll();
+    }
 }
