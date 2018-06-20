@@ -42,6 +42,10 @@ public class Categoria implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "nombre")
     private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "buscado")
+    private Integer buscado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkcategoria")
     private List<Producto> productoList;
 
@@ -73,6 +77,14 @@ public class Categoria implements Serializable {
         this.nombre = nombre;
     }
 
+    public Integer getBuscado() {
+        return buscado;
+    }
+
+    public void setBuscado(Integer buscado) {
+        this.buscado = buscado;
+    }
+    
     public List<Producto> getProductoList() {
         return productoList;
     }
