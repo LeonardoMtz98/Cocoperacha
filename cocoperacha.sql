@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2018 a las 03:28:06
+-- Tiempo de generación: 20-06-2018 a las 05:44:41
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cocoperacha`
+-- Base de datos: `Cocoperacha`
 --
 
 -- --------------------------------------------------------
@@ -30,22 +30,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categoria` (
   `pkcategoria` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
+  `nombre` varchar(50) NOT NULL,
+  `Buscado` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `categoria`
 --
 
-INSERT INTO `categoria` (`pkcategoria`, `nombre`) VALUES
-(1, 'Celulares'),
-(2, 'Electrodomesticos'),
-(3, 'Muebles'),
-(4, 'Joyas'),
-(5, 'Juguetes'),
-(6, 'Libros'),
-(7, 'Musica'),
-(8, 'Ropa');
+INSERT INTO `categoria` (`pkcategoria`, `nombre`, `Buscado`) VALUES
+(1, 'Celulares', 0),
+(2, 'Electrodomesticos', 0),
+(3, 'Muebles', 0),
+(4, 'Joyas', 0),
+(5, 'Juguetes', 0),
+(6, 'Libros', 0),
+(7, 'Musica', 0),
+(8, 'Ropa', 0);
 
 -- --------------------------------------------------------
 

@@ -7,8 +7,11 @@ package Controladores;
 
 import Entities.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -22,11 +25,16 @@ import javax.inject.Named;
 public class ControladorUsuario implements Serializable{
     private Usuario usuario;
     private Usuario usuarioLogeado;
+    private int x;
     private boolean sesionIniciada = false;
     
     @EJB
     private FachadaUsuario fachada;
 
+    public String retorno(String cad) {
+        return "Esta es tu cadena: " + cad;
+    }
+    
     public ControladorUsuario() {
     }
     
@@ -66,6 +74,14 @@ public class ControladorUsuario implements Serializable{
     }
     
     public List<Usuario> getUsuarios() {
+        if (x == 5) {
+            List<Usuario> popo = new ArrayList<Usuario>();
+            popo.add(new Usuario("popo", "papa", false, "nic", "quintalv"));            
+            return popo;
+        }
         return getFachada().findAll();
     }
+     public void setX(int x) {
+         this.x = x;
+     }
 }
