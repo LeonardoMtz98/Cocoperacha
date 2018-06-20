@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+         <title>Inicio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+    </h:head>
+    
+    <style>
+        
+        .inicioAdmin{
+            display: -webkit-box;
+            padding: 15px;
+        }
+        
+        .resultados{
+            width: 50%;
+        }
+        
+        .resultados:nth-child(2){
+            text-align: -webkit-right;
+        }
+        
+        .transacciones{
+            width: 90%;
+            text-align: -webkit-left;
+        }
+        
+        .categoria, .usuario{
+            width: 90%;
+            text-align: -webkit-right;
+        }
+        
+        .transacciones h1, .categoria h1, .usuario h1{
+            width: 80%;
+            font-family: sans-serif;
+            text-align: -webkit-left;
+            border-bottom: solid 2px #067A67;
+            padding: 10px 0px 10px 20px;
+        }
+        
+    </style>
+    
+    <h:body>
+        <div class="inicioAdmin">
+            <div class="resultados">
+                <div class="transacciones">
+                    <h1>Transacciones</h1>
+                </div>
+            </div>
+
+            <div class="resultados">
+                <div class="categoria">
+                   <h1>Categorías top</h1>
+                   
+                   <div class="grafica">
+                       <div id="Donin"></div>
+                   </div>
+                   
+                </div>
+                <div class="usuario">
+                   <h1>Usuarios top</h1> 
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <script>
+            $(document).ready(function(){
+               new Morris.Donut({
+                // ID of the element in which to draw the chart.
+                element: 'Donin',
+
+                data: [
+                  {label: "algo", value: #{controladorCategoria.categorias.get(0)},
+                  {label: "Electrodomésticos", value: 30},
+                  {label: "Salas", value: 20}
+                ]
+              }); 
+            });
+          
+        </script>
+    </h:body>
+</html>
+
