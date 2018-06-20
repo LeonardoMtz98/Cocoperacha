@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 19, 2018 at 02:22 PM
--- Server version: 5.7.14-log
--- PHP Version: 5.6.25
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-06-2018 a las 03:28:06
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cocoperacha`
+-- Base de datos: `cocoperacha`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria`
+-- Estructura de tabla para la tabla `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -31,10 +33,24 @@ CREATE TABLE `categoria` (
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`pkcategoria`, `nombre`) VALUES
+(1, 'Celulares'),
+(2, 'Electrodomesticos'),
+(3, 'Muebles'),
+(4, 'Joyas'),
+(5, 'Juguetes'),
+(6, 'Libros'),
+(7, 'Musica'),
+(8, 'Ropa');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `envio`
+-- Estructura de tabla para la tabla `envio`
 --
 
 CREATE TABLE `envio` (
@@ -45,7 +61,7 @@ CREATE TABLE `envio` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `producto`
+-- Estructura de tabla para la tabla `producto`
 --
 
 CREATE TABLE `producto` (
@@ -61,7 +77,7 @@ CREATE TABLE `producto` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaccion`
+-- Estructura de tabla para la tabla `transaccion`
 --
 
 CREATE TABLE `transaccion` (
@@ -77,7 +93,7 @@ CREATE TABLE `transaccion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -90,23 +106,23 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categoria`
+-- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`pkcategoria`);
 
 --
--- Indexes for table `envio`
+-- Indices de la tabla `envio`
 --
 ALTER TABLE `envio`
   ADD PRIMARY KEY (`pkenvio`);
 
 --
--- Indexes for table `producto`
+-- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`pkproducto`),
@@ -114,7 +130,7 @@ ALTER TABLE `producto`
   ADD KEY `fkcategoria` (`fkcategoria`);
 
 --
--- Indexes for table `transaccion`
+-- Indices de la tabla `transaccion`
 --
 ALTER TABLE `transaccion`
   ADD PRIMARY KEY (`pktransaccion`),
@@ -123,53 +139,58 @@ ALTER TABLE `transaccion`
   ADD KEY `fkenvio` (`fkenvio`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`correo`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categoria`
+-- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `pkcategoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pkcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
--- AUTO_INCREMENT for table `envio`
+-- AUTO_INCREMENT de la tabla `envio`
 --
 ALTER TABLE `envio`
   MODIFY `pkenvio` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `producto`
+-- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
   MODIFY `pkproducto` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `transaccion`
+-- AUTO_INCREMENT de la tabla `transaccion`
 --
 ALTER TABLE `transaccion`
   MODIFY `pktransaccion` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `producto`
+-- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`fkusuario`) REFERENCES `usuario` (`correo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`fkcategoria`) REFERENCES `categoria` (`pkcategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `transaccion`
+-- Filtros para la tabla `transaccion`
 --
 ALTER TABLE `transaccion`
   ADD CONSTRAINT `transaccion_ibfk_1` FOREIGN KEY (`fkenvio`) REFERENCES `envio` (`pkenvio`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `transaccion_ibfk_2` FOREIGN KEY (`fkusuariosolicitante`) REFERENCES `usuario` (`correo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `transaccion_ibfk_3` FOREIGN KEY (`fkproducto`) REFERENCES `producto` (`pkproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
