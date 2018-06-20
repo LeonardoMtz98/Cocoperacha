@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $("input[name=metodo]").click(function () {    
+                #{controladorTransaccion.transaccion.fkenvio}
+                alert("El metodo es: " + $(this).val());
+            });
+        });
+        </script>
+    
+    <style>
+        .encabezado h1{
+            width: 80%;
+            font-family: sans-serif;
+            text-align: -webkit-left;
+       
+        }
+        .titulos{
+            font-family: arial;
+            text-align: -webkit-left;
+            padding: 10px 0px 10px 0px;
+        }
+        h3,.contenido{
+            font-family: sans-serif;
+            text-align: -webkit-left;
+            font-weight: normal;
+            padding-right: 20px;
+        }
+        .contenedor{
+            display: -webkit-box;
+        }
+        
+        .espaciado
+        {
+           padding: 20px 20px 10px 20px; 
+        }
+        .division{
+            width: 50%;
+            
+        }
+       input[type=submit]
+        {
+            background:  #067A67;
+            color: white;
+            font-weight: bold;
+            margin-left: 25px;
+            font-family: sans-serif;
+            padding: 15px;
+        }
+         h4{
+            margin:  15px;
+        }
+        input[type=submit]:hover{
+            background:  #45b39d;
+            cursor: pointer;
+        }
+    </style>
+    <h:body>
+        <div class="encabezado">
+        <font face="arial" ><h1>DETALLES PRODUCTO</h1></font>
+        </div>
+        <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
+            <div class="contenedor">
+                <div id="imagen" class="division">
+                <img class="espaciado" id="img" src="data:image/png;base64,#{controladorProducto.convertImg(1)}"></img>
+                
+                </div>
+                <div id="datos"  class="division">
+                    <label ><h2 class="titulos">Nombre</h2></label>
+                    <label><h3>#{controladorProducto.findProducto(1).nombre}</h3></label>
+                    <br/>
+                    <label ><h2 class="titulos">Descripción</h2></label>
+                    <label><h3>#{controladorProducto.findProducto(1).descripcion}</h3></label> 
+                    
+                    <label ><h2 class="titulos">Elige el método de envío que más te convenga</h2></label>
+                    <h:form>
+                    <div class="contenido">
+                        <input type="radio" name="metodo" value="1" > Recoger</input>
+                        <input type="radio" name="metodo" value="2"> Punto medio</input>
+                        <input type="radio" name="metodo" value="3"> Pagar envío</input>
+                     </div> 
+                    <br/>
+                    
+                        <h:commandButton  action="#{controladorTransaccion.crearTransaccion()}" value="¡Lo quiero!"/>
+                    
+                    </h:form>
+                      
+                </div>
+                
+                   
+                
+            </div>
+        </br>
+    </h:body>
+</html>
+
