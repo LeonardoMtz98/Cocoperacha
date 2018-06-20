@@ -7,6 +7,7 @@ package Controladores;
 
 import Entities.Usuario;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -20,6 +21,9 @@ import javax.inject.Named;
 @SessionScoped
 public class ControladorUsuario implements Serializable{
     private Usuario usuario;
+    private Usuario usuarioLogeado;
+    private boolean sesionIniciada = false;
+    
     @EJB
     private FachadaUsuario fachada;
 
@@ -35,6 +39,26 @@ public class ControladorUsuario implements Serializable{
             usuario = new Usuario();
         }
         return usuario;
+    }
+    
+    public boolean isSesionIniciada() {
+        return sesionIniciada;
+    }
+    
+    public boolean logIn() {
+        Iterator<Usuario> itrUsuarios = getFachada().findAll().iterator();
+        while (itrUsuarios.hasNext()) {
+            Usuario temp = itrUsuarios.next();
+            if (temp.getCorreo().equals(usuario.getCorreo())) {
+                if (temp.getPassword().equals(usuario.getPassword())) {
+                    usuarioLogeado = temp;
+                    usuario = null;
+                    sesionIniciada = true;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     public void crearUsuario() {
