@@ -58,7 +58,7 @@ public class ControladorTransaccion implements Serializable{
     public List<Transaccion> getTransaccionesCompletas() {
         List<Transaccion> resultado = new ArrayList<>();
         getTransaccions().forEach(trans -> {
-            if (trans.getElegido() == Boolean.TRUE) {
+            if (trans.getElegido() == 1) {
                 resultado.add(trans);
             }
         });
