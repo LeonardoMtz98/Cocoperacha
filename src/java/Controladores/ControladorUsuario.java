@@ -88,12 +88,12 @@ public class ControladorUsuario implements Serializable{
         usuariosTop.add(new Usuario());
         usuariosTop.add(new Usuario());
         usuariosTop.add(new Usuario());
-        int top1 = 0, top2 = 0, top3 = 0;
+        long top1 = 0, top2 = 0, top3 = 0;
         List<Usuario> usuarios = getUsuarios();
         usuarios.forEach(us -> {
             Query consultaTrans = getFachada().getEntityManager().createQuery("SELECT COUNT(a) FROM Transaccion a WHERE a.fkproducto.fkusuario.correo = :us AND a.elegido = 1");
             consultaTrans.setParameter("us", us.getCorreo());
-            int cantidadTrans = (int)consultaTrans.getSingleResult();
+            long cantidadTrans = (long)consultaTrans.getSingleResult();
             if (cantidadTrans > top1) {
                 usuariosTop.set(2, usuariosTop.get(1));
                 usuariosTop.set(1, usuariosTop.get(0));

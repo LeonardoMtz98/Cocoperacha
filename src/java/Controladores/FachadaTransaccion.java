@@ -21,7 +21,7 @@ public class FachadaTransaccion extends AbstractFacade<Transaccion> {
     private EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 

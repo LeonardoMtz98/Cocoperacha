@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Entities.Producto;
 import Entities.Transaccion;
 import Entities.Usuario;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.persistence.Query;
 /**
  *
@@ -53,6 +55,16 @@ public class ControladorTransaccion implements Serializable{
         return getFachada().findAll();
     }
 
+    public List<Transaccion> getTransaccionesCompletas() {
+        List<Transaccion> resultado = new ArrayList<>();
+        getTransaccions().forEach(trans -> {
+            if (trans.getElegido() == Boolean.TRUE) {
+                resultado.add(trans);
+            }
+        });
+        return resultado;
+    }
+    
     public void setProductoId(int productoId){
         this.productoId=productoId;
     }
@@ -72,23 +84,13 @@ public class ControladorTransaccion implements Serializable{
     }
     
     public int getCantidadTransaccion(int pk){
-        int cantidad = 6, numero = 0;
-        
-        /*ControladorProducto controladorProducto = new ControladorProducto();
-        Iterator<Transaccion> itrTransaccion = getTransaccions().iterator();
-        while (itrTransaccion.hasNext()) {
-            Transaccion temp = itrTransaccion.next();
-            numero = temp.getFkproducto().getPkproducto();
-            if(temp.getElegido()){
-                Producto producto = controladorProducto.getFachada().findAll().get(temp.getFkproducto().getPkproducto());
-                if (producto.getFkcategoria().getPkcategoria() == pk) {
-                    cantidad++;
-                }
-                //numero = producto.getFkcategoria().getPkcategoria();
-                cantidad++;
+        List<Integer> cantidad = new ArrayList<>();
+        getTransaccionesCompletas().forEach(trans -> {
+            if (trans.getFkproducto().getFkcategoria().getPkcategoria() == pk) {
+                cantidad.add(1);
             }
-        }*/
-        return cantidad;
+        });
+        return cantidad.size();
     }
     
     public void setElegido(Transaccion elegido) {

@@ -68,7 +68,7 @@
             <div class="resultados">
                 <div class="transacciones">
                     <h1>Transacciones</h1>
-                    <h:dataTable value="#{controladorTransaccion.transaccions}" var="transaccion" border="2" id="Trans">
+                    <h:dataTable value="#{controladorTransaccion.transaccionesCompletas}" var="transaccion" border="2" id="Trans">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Número"/>
@@ -83,17 +83,15 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Usuario"/>
+                                <h:outputText value="Donador"/>
                             </f:facet>
-                            <h:outputLink value = "page1" >#{transaccion.fkusuariosolicitante.correo}</h:outputLink> 
+                            <h:outputLink value = "page1" >#{transaccion.fkproducto.fkusuario.correo}</h:outputLink> 
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Estado"/>
+                                <h:outputText value="Usuario"/>
                             </f:facet>
-                            <h:outputText value="Poseedor" rendered="#{transaccion.elegido}" style="color: green;"/>
-                            <h:outputText value="Fracasado" rendered="#{!transaccion.elegido and transaccion.elegido != null}" style="color: blue;"/>
-                            <h:outputText value="Pendiente" rendered="#{transaccion.elegido == null}" style="color: red;"/>
+                            <h:outputText value = "#{transaccion.fkusuariosolicitante.correo}" ></h:outputText> 
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -125,9 +123,9 @@
                 <div class="usuario">
                    <h1>Usuarios top</h1>
                    <hr/>
-                   <h:dataTable value="de" var="usuario">
+                   <h:dataTable value="#{controladorUsuario.topUsuarios}" var="usuario">
                        <h:column>
-                           <h:outputText value="ff"/>
+                           <h:outputText value="#{usuario.correo}"/>
                        </h:column>
                    </h:dataTable>
                 </div>
