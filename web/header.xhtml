@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <style>
+        div{
+            margin: 0px;
+            padding: 0px;
+        }
+        h1{
+            margin: 0px;
+            padding: 0px;
+        }
+        html{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        ul{
+            margin: 0px;
+            padding: 0px;
+        }
+        li{
+            margin: 0px;
+            padding: 0px;
+        }
+        input{
+            padding-left: 5px;
+        }
+        .contenedorPrincipal{
+            background-color: #E4C24D;
+            color: white;
+            margin-bottom: 5px;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .columna2{
+            margin: 0px;
+            padding: 0px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .columna2 ul{
+            margin-left: 0px;
+            max-width: 100%;  
+        }
+        .columna2 li{
+            list-style: none;
+            margin: 0px;
+            display: inline-block;
+            
+        }
+        .col12{
+            width: 49%;
+        }
+        .col12 div h1{
+            padding-left: 10px;
+            font-family: Arial;
+            color: white;
+            text-align: center;
+        }
+        .FormularioRegistro{
+            color: black;
+        }
+        .FormularioRegistro label{
+            padding-left: 5px;
+        }
+        .boton{
+            margin-left: 10px;
+        }
+        .enlaceRegistro{
+            float: right;
+            margin-right: 13%; 
+            padding-top: 5px;
+            text-decoration: none;
+            color: blue;
+        }
+        .Lista_Botones{
+            text-align: center;
+            color: black;
+        }
+        .Lista_Botones a{
+            text-decoration: none;
+            border: solid black 1px;
+            padding: 2px;
+            color: black;
+            background-color: #D9D9D9;
+            font-family: Arial;
+            font-size: 15px;
+        }
+        .FormularioSalir input{
+            padding: 3px;
+            padding-bottom: 2px;
+            padding-top: 4px;
+            font-size: 13px;
+            background-color: #D9D9D9;
+            border: solid black 1px;
+            font-family: Arial;
+        }
+        .Lista_Botones li label{
+            margin-right: 15px;
+        }
+        .Foto{
+                color: greenyellow;
+                background-color: red;
+            }
+    </style>
+    <body>
+        <div class="contenedorPrincipal">
+            <ul class="columna2">
+                <li class="col12">
+                    <div >
+                        <h1>Cocoperacha</h1>
+                    </div>
+                </li>
+                <li class = "col12">
+                    <div class=" contCambiante">
+                        
+                        <!-- Verificar si el usuario está logueado-->
+                        <!--<c:if test="#{!controladorUsuario.sesionIniciada}">-->
+                        <c:if test="#{false}">
+                        <h:form class ="FormularioRegistro">
+                            <h:outputLabel value="Correo: "/>
+                            <h:inputText value="#{controladorUsuario.usuario.correo}"/>
+                            <h:outputLabel value="Contraseña: "/>
+                            <h:inputSecret  value="#{controladorUsuario.usuario.nickname}"/>
+                            <h:commandButton class = "boton" action="#{controladorUsuario.logIn()}" value="Iniciar Sesión"/>
+                        </h:form>
+                        <h:outputLink class= "enlaceRegistro" value="http://www.google.com"> Registrate </h:outputLink>
+                        </c:if>
+                        
+                        <!-- Verificar si el usuario está logueado-->
+                        <!--<c:if test="#{controladorUsuario.sesionIniciada}">-->
+                        <c:if test="#{true}">
+                            <ul class="Lista_Botones">
+                                <li> <h:outputLabel value="Usuario"> </h:outputLabel> </li>
+                                
+                                <!-- Verificar si es coordinador-->
+                                <c:if test="#{true}">
+                                    <li> <h:link outcome="EjemploAccesoADatos" value="Peticiones"/></li>
+                                    <li> <h:link outcome="misArticulos" value="Articulos"/> </li>
+                                </c:if>
+                                <li> 
+                                    <h:form class ="FormularioSalir">
+                                    <!--<h:commandButton  action="" value="Cerrar Sesión"/>-->    
+                                    <!-- Llamado a metodo de cerrar sesion-->
+                                    <h:commandButton  action="index.html" value="Cerrar Sesión"/>
+                                    </h:form>
+                                </li>
+                            </ul>
+                        </c:if>
+                        
+                       
+                    </div>
+                   
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
