@@ -92,9 +92,7 @@ public class ControladorTransaccion implements Serializable{
     }
     
     public void setElegido(Transaccion elegido) {
-        Transaccion miTransaccion = getFachada().find(elegido.getPktransaccion());
-        miTransaccion.setElegido(Boolean.TRUE);
-        getFachada().edit(miTransaccion);
+        transaccion = elegido;
     }
    
     public List<Transaccion> getTransaccionesGanadas(Usuario usuario) {
@@ -104,7 +102,7 @@ public class ControladorTransaccion implements Serializable{
         return transacciones;
     }
     
-    public void setCalificacion() {
+    public void guardarTransaccion() {
         getFachada().edit(transaccion);
     }
 }
