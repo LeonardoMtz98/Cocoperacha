@@ -42,6 +42,16 @@
                 display: inline-block;
                 float: bottom;
             }
+            div#buscados{
+                margin-left: 10px;
+                padding: 80px;
+                padding-top:  30px;
+                width: 300px;
+                height: 50px;
+                background-color: white;
+                display: inline-block;
+                float: right;
+            }
             #linea {
                 background-color: lightcoral;
                 height: 3px;
@@ -67,19 +77,23 @@
         <div id="general" >
 		<font face="arial" id="titulo">ARTICULOS</font>
 		<hr id="linea"></hr><br></br>
-		<div id="articulos"></div>
+                <div id="articulos">
+                   
+                </div>
 		<div id = "categorias" >
 			<font face="arial" id="subtitulo">CATEGORIAS</font>
 			<hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
 				<font face="arial" id="textos">
                                      <div>
-                                         <h:dataTable value="#{controladorCategoria.categorias}" var="categoria" id="Tabla">
+                                         <h:form>
+                                         <h:dataTable value="#{controladorCategoria.categorias}" var="categoria">
                                             <h:column>
                                                 <f:facet name="header">
                                                 </f:facet>
                                                 <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.nombre)}" /> 
                                             </h:column>     
-                                        </h:dataTable>                                      
+                                        </h:dataTable>  
+                                         </h:form>
                                     </div>  
 				</font>
                         </br>
@@ -89,7 +103,7 @@
                     <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
                         <font face="arial" id="textos">
                             <div>
-                                <h:dataTable value="#{controladorCategoria.topCategorias}" var="categoria" id="Tabla">
+                                <h:dataTable value="#{controladorCategoria.topCategorias}" var="categoria">
                                     <h:column>
                                         <f:facet name="header">
                                         </f:facet>                     
@@ -99,7 +113,18 @@
                            </div>  
                         </font>
                     </br>
-                </div>           
+                </div>
+                <div id = "buscados">
+                    <font face="arial" id="subtitulo">¿BUSCAS ALGO?</font>
+                    <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
+                    <h:form>
+                        <h:selectManyCheckbox value="#{controladorCategoria.buscadas}" layout="pageDirection">
+                            <f:selectItems value="#{controladorCategoria.categorias}" var = "categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.pkcategoria}" />
+                        </h:selectManyCheckbox>
+                        <h:commandButton action="#{controladorCategoria.seBusca()}" value="ok"/>
+                    </h:form>
+                    </br>
+                </div>
 	</div>
     </h:body>
 </html>
