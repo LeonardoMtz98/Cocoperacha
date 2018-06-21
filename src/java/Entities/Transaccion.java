@@ -37,7 +37,7 @@ public class Transaccion implements Serializable {
     @Column(name = "pktransaccion")
     private Integer pktransaccion;
     @Column(name = "Elegido")
-    private Boolean elegido;
+    private Integer elegido;
     @Column(name = "megusta")
     private Boolean megusta;
     @Lob
@@ -69,11 +69,11 @@ public class Transaccion implements Serializable {
         this.pktransaccion = pktransaccion;
     }
 
-    public Boolean getElegido() {
+    public Integer getElegido() {
         return elegido;
     }
 
-    public void setElegido(Boolean elegido) {
+    public void setElegido(Integer elegido) {
         this.elegido = elegido;
     }
 
