@@ -61,35 +61,29 @@
         <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
             <div class="contenedor">
                 <div id="imagen" class="division">
-                <img class="espaciado" id="img" src="data:image/png;base64,#{controladorProducto.convertImg(1)}"></img>
+                    <img class="espaciado" id="img" src="data:image/png;base64,#{controladorProducto.convertImg(controladorProducto.producto.pkproducto)}"></img>
                 
                 </div>
                 <div id="datos"  class="division">
                     <label ><h2 class="titulos">Nombre</h2></label>
-                    <label><h3>#{controladorProducto.findProducto(1).nombre}</h3></label>
+                    <label><h3>#{controladorProducto.producto.nombre}</h3></label>
                     <br/>
                     <label ><h2 class="titulos">Descripción</h2></label>
-                    <label><h3>#{controladorProducto.findProducto(1).descripcion}</h3></label> 
+                    <label><h3>#{controladorProducto.producto.descripcion}</h3></label> 
                     
                     <label ><h2 class="titulos">Elige el método de envío que más te convenga</h2></label>
                     <h:form>
                     <div class="contenido">
-                        <h:inputHidden value="#{controladorTransaccion.transaccion.fkproducto}"/>
+                        <h:inputHidden value="#{controladorTransaccion.transaccion.fkproducto = controladorProducto.producto}" />
+                        <h:inputHidden value="#{controladorTransaccion.transaccion.fkusuariosolicitante = controladorUsuario.usuarioLoggeado}"/>
                         <h:selectOneRadio  value="#{controladorTransaccion.transaccion.fkenvio}"> 
                             <f:selectItems value="#{controladorEnvio.envios}"  var="envio" itemLabel="#{envio.nombre}" itemValue="#{envio}"/>
-                        </h:selectOneRadio>
-                       
+                        </h:selectOneRadio>                       
                      </div> 
-                    <br/>
-                    
-                        <h:commandButton  action="#{controladorTransaccion.crearTransaccion()}" value="¡Lo quiero!"/>
-                    
-                    </h:form>
-                      
+                    <br/>                    
+                        <h:commandButton  action="#{controladorTransaccion.crearTransaccion()}" value="¡Lo quiero!"/>                    
+                    </h:form>                      
                 </div>
-                
-                   
-                
             </div>
         </br>
     </h:body>

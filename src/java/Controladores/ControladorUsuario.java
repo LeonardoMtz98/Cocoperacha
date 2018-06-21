@@ -50,6 +50,10 @@ public class ControladorUsuario implements Serializable{
         return usuario;
     }
     
+    public Usuario getUsuarioLoggeado() {
+        return usuarioLogeado;
+    }
+    
     public boolean isSesionIniciada() {
         return sesionIniciada;
     }
