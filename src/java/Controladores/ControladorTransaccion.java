@@ -6,12 +6,14 @@
 package Controladores;
 
 import Entities.Transaccion;
+import Entities.Usuario;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
+import javax.persistence.Query;
 /**
  *
  * @author Leonardo Martinez
@@ -37,6 +39,10 @@ public class ControladorTransaccion implements Serializable{
             transaccion = new Transaccion();
         }
         return transaccion;
+    }
+    
+    public void setTransaccion(Transaccion trans){
+        transaccion = trans;
     }
     
     public void crearTransaccion() {
@@ -85,13 +91,18 @@ public class ControladorTransaccion implements Serializable{
         return cantidad;
     }
     
-    public Transaccion getTransaccionPorId(int id){
-        if (transaccion == null) {
-            return null;
-        }else{
-            transaccion = getFachada().find(id);
-            return transaccion;
-        }
+    public void setElegido(Transaccion elegido) {
+        transaccion = elegido;
+    }
+   
+    public List<Transaccion> getTransaccionesGanadas(Usuario usuario) {
+        Query consulta = getFachada().getEntityManager().createQuery("SELECT a FROM Transaccion a WHERE a.fkproducto.fkusuario =:usuario AND a.elegido = 1");
+        consulta.setParameter("usuario", usuario);
+        List<Transaccion> transacciones = consulta.getResultList();
+        return transacciones;
     }
     
+    public void guardarTransaccion() {
+        getFachada().edit(transaccion);
+    }
 }

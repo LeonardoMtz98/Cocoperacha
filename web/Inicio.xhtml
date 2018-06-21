@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cocoperacha</title>
+        <style>
+            div#general{
+                margin: auto;
+                margin-top: 50px;
+                width: 1280px;
+                height: 960px;
+                padding: 5px;
+                background-color: white;
+             }
+            div#articulos{
+                width: 66.5%;
+                height: 400px;
+                background-color: white;
+                overflow: scroll;
+                overflow-x:hidden;
+                border:1px solid black;
+                float: left;
+            }
+            div#categorias{
+                margin-left: 45px;
+                padding: 10px;
+                width: 300px;
+                height: 200px;
+                background-color: white;
+                display: inline-block;
+                float: left;    
+            }
+            div#masbuscados{
+                margin-left: 45px;
+                padding: 10px;
+                margin-top: 50px;
+                width: 300px;
+                height: 200px;
+                background-color: white;
+                display: inline-block;
+                float: bottom;
+            }
+            #linea {
+                background-color: lightcoral;
+                height: 3px;
+                margin-left: 0%;
+                width: 66.5%;
+            }
+            #titulo{
+                font-size: 50px;
+                margin-left: 3%;
+            }
+            #subtitulo{
+                font-size: 30px;
+                margin-left: 3%;
+            }
+            #textos{
+            	font-size: 15px;
+            	margin-top: 0px;
+            }
+
+	</style>
+    </h:head>
+    <h:body>
+        <div id="general" >
+		<font face="arial" id="titulo">ARTICULOS</font>
+		<hr id="linea"></hr><br></br>
+		<div id="articulos"></div>
+		<div id = "categorias" >
+			<font face="arial" id="subtitulo">CATEGORIAS</font>
+			<hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
+				<font face="arial" id="textos">
+                                     <div>
+                                         <h:dataTable value="#{controladorCategoria.categorias}" var="categoria" id="Tabla">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                </f:facet>
+                                                <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.nombre)}" /> 
+                                            </h:column>     
+                                        </h:dataTable>                                      
+                                    </div>  
+				</font>
+                        </br>
+		</div>
+                <div id = "masbuscados">
+                    <font face="arial" id="subtitulo">TOP MAS BUSCADAS</font>
+                    <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
+                        <font face="arial" id="textos">
+                            <div>
+                                <h:dataTable value="#{controladorCategoria.topCategorias}" var="categoria" id="Tabla">
+                                    <h:column>
+                                        <f:facet name="header">
+                                        </f:facet>                     
+                                        <h:outputText value="#{categoria.nombre}"/>      
+                                    </h:column>     
+                                </h:dataTable>  
+                           </div>  
+                        </font>
+                    </br>
+                </div>           
+	</div>
+    </h:body>
+</html>
+
