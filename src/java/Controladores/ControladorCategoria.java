@@ -64,4 +64,7 @@ public class ControladorCategoria implements Serializable{
             getFachada().edit(temp);
         }
     }
+    public Categoria getCategoriaPorId(int pk) {
+        return getFachada().find(pk);
+    }
 }

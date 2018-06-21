@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Documents/CETI/8vo/ProgramacionAvanzadaII/Programas/Proyecto3erPaRCIAL/Cocoperacha/src/java/Entities/Producto.java</file>
-            <file>file:/C:/Users/Usuario/Documents/CETI/8vo/ProgramacionAvanzadaII/Programas/Proyecto3erPaRCIAL/Cocoperacha/src/java/Controladores/ControladorUsuario.java</file>
-            <file>file:/C:/Users/Usuario/Documents/CETI/8vo/ProgramacionAvanzadaII/Programas/Proyecto3erPaRCIAL/Cocoperacha/src/java/Controladores/FachadaProducto.java</file>
+            <file>file:/C:/Users/jujuj/Documents/NetBeansProjects/Cocoperacha/web/inicioAdministrador.xhtml</file>
+            <file>file:/C:/Users/jujuj/Documents/NetBeansProjects/Cocoperacha/src/java/Controladores/ControladorProducto.java</file>
+            <file>file:/C:/Users/jujuj/Documents/NetBeansProjects/Cocoperacha/src/java/Controladores/ControladorCategoria.java</file>
+            <file>file:/C:/Users/jujuj/Documents/NetBeansProjects/Cocoperacha/src/java/Controladores/ControladorTransaccion.java</file>
         </group>
     </open-files>
 </project-private>

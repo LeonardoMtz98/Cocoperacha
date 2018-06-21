@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
          <title>Inicio</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -21,10 +22,11 @@
         }
         
         .resultados{
-            width: 50%;
+            width: 70%;
         }
         
         .resultados:nth-child(2){
+            width: 30%;
             text-align: -webkit-right;
         }
         
@@ -38,12 +40,25 @@
             text-align: -webkit-right;
         }
         
-        .transacciones h1, .categoria h1, .usuario h1{
+        .transacciones h1{
             width: 80%;
             font-family: sans-serif;
             text-align: -webkit-left;
             border-bottom: solid 2px #067A67;
             padding: 10px 0px 10px 20px;
+        }
+        
+        .categoria h1, .usuario h1{
+            width: 100%;
+            font-family: sans-serif;
+            text-align: -webkit-left;
+            border-bottom: solid 2px #067A67;
+            padding: 10px 0px 10px 20px;
+        }
+        
+        #Trans td, #Trans tr{
+            text-align: center;
+            padding: 10px 5px 10px 5px;
         }
         
     </style>
@@ -53,6 +68,48 @@
             <div class="resultados">
                 <div class="transacciones">
                     <h1>Transacciones</h1>
+                    <h:dataTable value="#{controladorTransaccion.transaccions}" var="transaccion" border="2" id="Trans">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Número"/>
+                            </f:facet>
+                            <h:outputText value="#{transaccion.pktransaccion}"/>
+                        </h:column>                
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Producto"/>
+                            </f:facet>
+                            <h:outputText value="#{transaccion.fkproducto.nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Usuario"/>
+                            </f:facet>
+                            <h:outputLink value = "page1" >#{transaccion.fkusuariosolicitante.correo}</h:outputLink> 
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <h:outputText value="Poseedor" rendered="#{transaccion.elegido}" style="color: green;"/>
+                            <h:outputText value="Fracasado" rendered="#{!transaccion.elegido and transaccion.elegido != null}" style="color: blue;"/>
+                            <h:outputText value="Pendiente" rendered="#{transaccion.elegido == null}" style="color: red;"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opinión"/>
+                            </f:facet>
+                            <h:outputText value="Gustó" rendered="#{transaccion.megusta}"/>
+                            <h:outputText value="No gustó" rendered="#{!transaccion.megusta and transaccion.megusta != null}"/>
+                            <h:outputText value="" rendered="#{transaccion.megusta == null}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Comentario"/>
+                            </f:facet>
+                            <h:outputText value="#{transaccion.comentario}"/>
+                        </h:column>
+                    </h:dataTable>
                 </div>
             </div>
 
@@ -66,25 +123,33 @@
                    
                 </div>
                 <div class="usuario">
-                   <h1>Usuarios top</h1> 
+                   <h1>Usuarios top</h1>
+                   <hr/>
+                   <h:dataTable value="#{controladorUsuario.topUsuarios}" var="usuario">
+                       <h:column>
+                           <h:outputText value="#{usuario.correo}"/>
+                       </h:column>
+                   </h:dataTable>
                 </div>
             </div>
-        </div>
-        
-        
+        </div>    
         
         <script>
             $(document).ready(function(){
-               new Morris.Donut({
-                // ID of the element in which to draw the chart.
-                element: 'Donin',
-
-                data: [
-                  {label: "algo", value: #{controladorCategoria.categorias.get(0)},
-                  {label: "Electrodomésticos", value: 30},
-                  {label: "Salas", value: 20}
-                ]
-              }); 
+               
+                new Morris.Donut({
+                    element: 'Donin',
+                    data: [
+                      {label: "#{controladorCategoria.getCategoriaPorId(1).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(1)}},
+                      {label: "#{controladorCategoria.getCategoriaPorId(2).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(2)}},
+                      {label: "#{controladorCategoria.getCategoriaPorId(3).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(3)}},
+                      {label: "#{controladorCategoria.getCategoriaPorId(4).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(4)}},
+                      {label: "#{controladorCategoria.getCategoriaPorId(5).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(5)}},
+                      {label: "#{controladorCategoria.getCategoriaPorId(6).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(6)}},
+                      {label: "#{controladorCategoria.getCategoriaPorId(7).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(7)}},
+                      {label: "#{controladorCategoria.getCategoriaPorId(8).nombre}", value: #{controladorTransaccion.getCantidadTransaccion(8)}}
+                    ]
+                  }); 
             });
           
         </script>

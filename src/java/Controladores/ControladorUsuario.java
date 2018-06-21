@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Entities.Transaccion;
 import Entities.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,7 +27,6 @@ import javax.inject.Named;
 public class ControladorUsuario implements Serializable{
     private Usuario usuario;
     private Usuario usuarioLogeado;
-    private int x;
     private boolean sesionIniciada = false;
     
     @EJB
@@ -69,19 +70,41 @@ public class ControladorUsuario implements Serializable{
         return false;
     }
     
+    public void logOut() {
+        sesionIniciada = false;
+        usuarioLogeado = null;
+    }
+    
     public void crearUsuario() {
         getFachada().create(usuario);
     }
     
     public List<Usuario> getUsuarios() {
-        if (x == 5) {
-            List<Usuario> popo = new ArrayList<Usuario>();
-            popo.add(new Usuario("popo", "papa", false, "nic", "quintalv"));            
-            return popo;
-        }
         return getFachada().findAll();
     }
-     public void setX(int x) {
-         this.x = x;
-     }
+    
+    public List<Usuario> getTopUsuarios() {
+        List<Usuario> usuariosTop = new ArrayList<>();
+        usuariosTop.add(new Usuario());
+        usuariosTop.add(new Usuario());
+        usuariosTop.add(new Usuario());
+        int top1 = 0, top2 = 0, top3 = 0;
+        List<Usuario> usuarios = getUsuarios();
+        usuarios.forEach(us -> {
+            Query consultaTrans = getFachada().getEntityManager().createQuery("SELECT COUNT(a) FROM Transaccion a WHERE a.fkproducto.fkusuario.correo = :us AND a.elegido = 1");
+            consultaTrans.setParameter("us", us.getCorreo());
+            int cantidadTrans = (int)consultaTrans.getSingleResult();
+            if (cantidadTrans > top1) {
+                usuariosTop.set(2, usuariosTop.get(1));
+                usuariosTop.set(1, usuariosTop.get(0));
+                usuariosTop.set(0, us);
+            }else if (cantidadTrans > top2) {
+                usuariosTop.set(2, usuariosTop.get(1));
+                usuariosTop.set(1, us);
+            }else if (cantidadTrans > top3) {
+                usuariosTop.set(2, us);
+            }
+        });
+        return usuariosTop;
+    }
 }
