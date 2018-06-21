@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="Estilos/font-awesome.css"/>
+        <title>Cocoperacha</title>
+	<style>
+            div#general{
+                margin: auto;
+                margin-top: 50px;
+                width: 1280px;
+                height: 960px;
+                padding: 5px;
+                background-color: white;
+            }
+            div#peticiones{
+                width: 66.5%;
+                height: 400px;
+                background-color: white;
+                overflow: scroll;
+                overflow-x:hidden;
+                border:1px solid black;
+                float: left;
+            }
+            div#calificarproducto{
+                margin-left: 45px;
+                padding: 10px;
+                width: 300px;
+                height: 380px;
+                background-color: #E4C24D;
+                display: inline-block;
+                float: left;
+                border:1px solid black;
+                text-align: center;
+            }
+            div#comentarios{
+                margin: auto;
+                margin-top: 50px;
+                width: 80%;
+                height: 400px;
+                background-color: white;
+                float: left;
+            }
+            div#Imagen{
+                max-width: 180px;
+                max-height: 180px;
+                padding: 5px;
+                float: left; 
+            }
+            div#DatosVerde{
+                margin-right: 0px;
+                font-family: "arial";
+                width: 75%;
+                height: 180px;
+                padding: 5px;
+                background-color: green;
+                float: left; 
+            }
+            div#DatosRojo{
+                margin-right: 0px;
+                font-family: "arial";
+                width: 75%;
+                height: 180px;
+                padding: 5px;
+                background-color: red;
+                float: left; 
+            }
+            div#DatosAmarillo{
+                margin-right: 0px;
+                font-family: "arial";
+                width: 75%;
+                height: 180px;
+                padding: 5px;
+                background-color: yellow;
+                float: left; 
+            }
+            #titulo{
+                font-size: 50px;
+                margin-left: 3%;
+            }
+            #linea{
+                background-color: green;
+                height: 3px;
+                margin-left: 0%;
+                width: 66.5%;
+            }
+            #linea2{
+                background-color: green;
+                height: 3px;
+                margin-left: 0%;
+                width: 100%;
+            }
+            #subtitulo{
+                font-size: 30px;
+                margin-left: 3%;
+            }
+            #Elementos{
+                width: 100%;
+                height: 180px;
+            }
+            #image{
+                max-width: 180px;
+                max-height: 180px;
+            }
+	</style>	
+    </h:head>
+    <h:body>
+        <div id="general">
+            <font face="arial" id="titulo">PETICIONES</font>
+            <hr id="linea"></hr><br/>
+                <div id="peticiones">    
+                   
+                        <h:dataTable value="#{controladorTransaccion.transaccions}" var="transaccion" border="1" id="Elementos">
+                            <h:column>
+                                <div style="width: 100%;height: 100px;">
+                                    <div id="Imagen">
+                                        <img id="image" src="data:image/png;base64,#{controladorProducto.convertImg(transaccion.fkproducto.pkproducto)}"></img>
+                                    </div>
+                                    <h:outputLabel rendered="#{transaccion.elegido == 0}">
+                                        <div id="DatosRojo">
+                                            <h:outputLabel style="font-variant:bold; font-size: 160%" value="#{transaccion.fkproducto.nombre}"/> <br/>
+                                            <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/>
+                                        </div>
+                                    </h:outputLabel>
+                                    <h:outputLabel rendered="#{transaccion.elegido == 1}">
+                                        <div id="DatosVerde">
+                                            <h:outputLabel style="font-variant:bold; font-size: 160%" value="#{transaccion.fkproducto.nombre}"/> <br/>
+                                            <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/>
+                                        </div>
+                                    </h:outputLabel>
+                                    <h:outputLabel rendered="#{transaccion.elegido == 2}">
+                                        <div id="DatosAmarillo">
+                                            <h:outputLabel style="font-variant:bold; font-size: 160%" value="#{transaccion.fkproducto.nombre}"/> <br/>
+                                            <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/>
+                                            <h:outputLabel value="#{transaccion.elegido}"/>
+                                        </div>
+                                    </h:outputLabel>                                    
+                                </div>
+                            </h:column>     
+                        </h:dataTable> 
+                   
+                </div>
+            <div id="calificarproducto">
+                <font face="arial" id="subtitulo">CALIFICA EL PRODUCTO</font>
+                <h:form>
+                    <hr id="linea2"></hr><br></br>
+                    <h:selectOneMenu value="#{controladorTransaccion.getTransaccionesGanadas(controladorUsuario.usuarioLoggeado)}">
+                        <f:selectItems itemValue="1"/>
+                    </h:selectOneMenu>
+                    <br/><br/><font face="arial">Comentarios:<br></br></font>
+                    <div>
+                        <h:inputTextarea style="margin: auto; width: 220px; height: 100px; resize: none;" value="#{controladorProducto.misProductos}"/> 
+                        <br/><br/>
+                        <input type="checkbox" name="megusta" value="OFF">Me Gusta</input><br/>
+                        <input type="checkbox" name="nomegusta" value="OFF">No Me Gusta</input><br/><br/><br/>
+                        <input type="submit" name="enviar"/>
+                    </div>
+                </h:form>            
+		</div>
+	</div>	
+    </h:body>
+</html>
