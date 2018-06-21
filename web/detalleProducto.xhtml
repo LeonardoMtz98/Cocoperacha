@@ -1,20 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script type="text/javascript">
-        $(document).ready(function()
-        {
-            $("input[name=metodo]").click(function () {    
-                #{controladorTransaccion.transaccion.fkenvio}
-                alert("El metodo es: " + $(this).val());
-            });
-        });
-        </script>
     
     <style>
         .encabezado h1{
@@ -70,22 +61,24 @@
         <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
             <div class="contenedor">
                 <div id="imagen" class="division">
-                    <img class="espaciado" id="img" src="data:image/png;base64,#{controladorProducto.convertImg(controladorProducto.producto)}"></img>
+                <img class="espaciado" id="img" src="data:image/png;base64,#{controladorProducto.convertImg(1)}"></img>
                 
                 </div>
                 <div id="datos"  class="division">
                     <label ><h2 class="titulos">Nombre</h2></label>
-                    <label><h3>#{controladorProducto.findProducto(controladorProducto.producto).nombre}</h3></label>
+                    <label><h3>#{controladorProducto.findProducto(1).nombre}</h3></label>
                     <br/>
                     <label ><h2 class="titulos">Descripción</h2></label>
-                    <label><h3>#{controladorProducto.findProducto(controladorProducto.producto).descripcion}</h3></label> 
+                    <label><h3>#{controladorProducto.findProducto(1).descripcion}</h3></label> 
                     
                     <label ><h2 class="titulos">Elige el método de envío que más te convenga</h2></label>
                     <h:form>
                     <div class="contenido">
-                        <input type="radio" name="metodo" value="1" > Recoger</input>
-                        <input type="radio" name="metodo" value="2"> Punto medio</input>
-                        <input type="radio" name="metodo" value="3"> Pagar envío</input>
+                        <h:inputHidden value="#{controladorTransaccion.transaccion.fkproducto}"/>
+                        <h:selectOneRadio  value="#{controladorTransaccion.transaccion.fkenvio}"> 
+                            <f:selectItems value="#{controladorEnvio.envios}"  var="envio" itemLabel="#{envio.nombre}" itemValue="#{envio}"/>
+                        </h:selectOneRadio>
+                       
                      </div> 
                     <br/>
                     
