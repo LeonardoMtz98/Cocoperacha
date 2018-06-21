@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2018 a las 06:46:33
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Tiempo de generación: 21-06-2018 a las 16:39:32
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -41,12 +39,13 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`pkcategoria`, `nombre`, `Buscado`) VALUES
 (1, 'Celulares', 0),
 (2, 'Electrodomesticos', 0),
-(3, 'Muebles', 0),
-(4, 'Joyas', 0),
+(3, 'Muebles', 3),
+(4, 'Joyas', 3),
 (5, 'Juguetes', 0),
-(6, 'Libros', 0),
-(7, 'Musica', 0),
-(8, 'Ropa', 0);
+(6, 'Libros', 3),
+(7, 'Musica', 4),
+(8, 'Ropa', 2),
+(9, 'Todas', 0);
 
 -- --------------------------------------------------------
 
@@ -81,7 +80,8 @@ CREATE TABLE `producto` (
   `descripcionbreve` text NOT NULL,
   `descripcion` text NOT NULL,
   `fkcategoria` int(11) NOT NULL,
-  `fkusuario` varchar(50) NOT NULL
+  `fkusuario` varchar(50) NOT NULL,
+  `IsRegalado` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -162,26 +162,22 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `pkcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `pkcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `envio`
 --
 ALTER TABLE `envio`
   MODIFY `pkenvio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
   MODIFY `pkproducto` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `transaccion`
 --
 ALTER TABLE `transaccion`
   MODIFY `pktransaccion` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- Restricciones para tablas volcadas
 --
@@ -200,7 +196,6 @@ ALTER TABLE `transaccion`
   ADD CONSTRAINT `transaccion_ibfk_1` FOREIGN KEY (`fkenvio`) REFERENCES `envio` (`pkenvio`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `transaccion_ibfk_2` FOREIGN KEY (`fkusuariosolicitante`) REFERENCES `usuario` (`correo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `transaccion_ibfk_3` FOREIGN KEY (`fkproducto`) REFERENCES `producto` (`pkproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
