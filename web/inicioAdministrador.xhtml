@@ -67,6 +67,12 @@
                 </div>
                 <div class="usuario">
                    <h1>Usuarios top</h1> 
+                   <hr/>
+                   <h:dataTable value="#{controladorUsuario.topUsuarios}" var="usuario">
+                       <h:column>
+                           <h:outputText value="#{usuario.correo}"/>
+                       </h:column>
+                   </h:dataTable>
                 </div>
             </div>
         </div>
