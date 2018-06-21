@@ -4,18 +4,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Controladores;
 
 import Entities.Categoria;
 import Entities.Producto;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.Query;
+
+
 
 /**
  *
@@ -26,6 +30,8 @@ import javax.persistence.Query;
 public class ControladorProducto implements Serializable{
     private Producto producto;
     private String categoriaAMostrar = "Todas";
+      private String usuario="";
+
     @EJB
     private FachadaProducto fachada;
     
@@ -78,4 +84,23 @@ public class ControladorProducto implements Serializable{
         String bphoto = Base64.getEncoder().encodeToString(photo);
         return bphoto;
     }
+
+
+    public void setUsuario(String correo){
+        this.usuario=correo;
+    }
+    
+    public List<Producto> getMisProductos(){   
+        List<Producto> misProductos = new ArrayList<>();
+        String correo;
+        List<Producto> productos = getFachada().findAll();    
+        for(int i=0;i<productos.size();i++){
+        correo=productos.get(i).getFkusuario().getCorreo();
+            if(correo.equals(this.usuario))
+            misProductos.add(productos.get(i));
+        }
+
+        return misProductos;
+    }
+
 }
