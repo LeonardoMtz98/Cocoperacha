@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+       <title>Registro</title>
+        <style>
+            #Formulario  {
+                border-color: red;
+                background-color: #6699ff;
+                margin-left: 450px;
+                margin-top: 120px;
+                border-radius: 15px;
+                width: 400px;
+                height: 400px
+                
+            }
+            #Cuadro{
+                background-color: lightblue;
+            }
+            .boton .aplicar{
+                text-decoration: none;
+                padding: 3px;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-family: helvetica;
+                font-weight: 150;
+                font-size: 15px;
+                font-style: italic;
+                color: #006505;
+                background-color: lightblue;
+                border-radius: 15px;
+                border: 3px double #6699ff;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:include src="header.xhtml"/>
+        <div id="Formulario">
+             <center>  <h2> Registro </h2> </center>
+        <h:form>
+             <div id="Cuadro">
+                 <center><h:panelGrid columns="2" 
+                         cellpadding = "1" cellspacing = "30">
+                <h:outputLabel value="Correo: "/>
+                <h:inputText value="#{controladorUsuario.usuario.correo}"/>
+                <h:outputLabel value="Nickname: "/>
+                <h:inputText value="#{controladorUsuario.usuario.nickname}"/>
+                <h:outputLabel value="Direccion"/>
+                <h:inputText value="#{controladorUsuario.usuario.direccion}" />
+                <h:outputLabel value="Contraseña"/>
+                <h:inputSecret value="#{controladorUsuario.usuario.password}"/>
+                     </h:panelGrid> </center>
+                 <div class="boton">
+                     <center><h:commandButton action="#{controladorUsuario.crearUsuario()}" value="Crear usuario" styleClass="aplicar" /></center></div>
+             </div>
+        </h:form>
+    </div>
+    </h:body>
+</html>
