@@ -70,6 +70,11 @@ public class ControladorUsuario implements Serializable{
         return false;
     }
     
+    public void logOut() {
+        sesionIniciada = false;
+        usuarioLogeado = null;
+    }
+    
     public void crearUsuario() {
         getFachada().create(usuario);
     }
