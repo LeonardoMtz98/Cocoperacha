@@ -64,6 +64,9 @@ and open the template in the editor.
         .col12{
             width: 49%;
         }
+        .col12 a{
+            text-decoration: none;
+        }
         .col12 div h1{
             padding-left: 10px;
             font-family: Arial;
@@ -121,15 +124,17 @@ and open the template in the editor.
             <ul class="columna2">
                 <li class="col12">
                     <div >
-                        <h1>Cocoperacha</h1>
+                        <h:link outcome="index">
+                            <h1>Cocoperacha</h1>    
+                        </h:link>
+                        
                     </div>
                 </li>
                 <li class = "col12">
                     <div class=" contCambiante">
                         
                         <!-- Verificar si el usuario está logueado-->
-                        <!--<c:if test="#{!controladorUsuario.sesionIniciada}">-->
-                        <c:if test="#{false}">
+                        <c:if test="#{!controladorUsuario.sesionIniciada}">
                         <h:form class ="FormularioRegistro">
                             <h:outputLabel value="Correo: "/>
                             <h:inputText value="#{controladorUsuario.usuario.correo}"/>
@@ -137,12 +142,11 @@ and open the template in the editor.
                             <h:inputSecret  value="#{controladorUsuario.usuario.nickname}"/>
                             <h:commandButton class = "boton" action="#{controladorUsuario.logIn()}" value="Iniciar Sesión"/>
                         </h:form>
-                        <h:outputLink class= "enlaceRegistro" value="http://www.google.com"> Registrate </h:outputLink>
+                        <h:link class= "enlaceRegistro" outcome="registro" value="Registrate"/>
                         </c:if>
                         
                         <!-- Verificar si el usuario está logueado-->
-                        <!--<c:if test="#{controladorUsuario.sesionIniciada}">-->
-                        <c:if test="#{true}">
+                        <c:if test="#{controladorUsuario.sesionIniciada}">
                             <ul class="Lista_Botones">
                                 <li> <h:outputLabel value="Usuario"> </h:outputLabel> </li>
                                 
