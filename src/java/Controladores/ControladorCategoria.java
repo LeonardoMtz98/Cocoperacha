@@ -53,17 +53,24 @@ public class ControladorCategoria implements Serializable{
         return (List<Categoria>)consulta.setMaxResults(3).getResultList();
     }
     
-    public int[] getBuscadas() {
+   public int[] getBuscadas() {
+        if (buscadas == null) 
+        {
+            buscadas = new int [getFachada().findAll().size()];
+        }
         return buscadas;
     }
-    
+    public void setBuscadas(int[] buscadas) {
+        this.buscadas = buscadas;
+    }
     public void seBusca() {
         for (int i = 0; i < buscadas.length; i++) {
-            Categoria temp = getFachada().find(i);
+            Categoria temp = getFachada().find(buscadas[i]);
             temp.setBuscado(temp.getBuscado() + 1);
             getFachada().edit(temp);
         }
     }
+    
     public Categoria getCategoriaPorId(int pk) {
         return getFachada().find(pk);
     }
