@@ -70,15 +70,15 @@
         <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
             <div class="contenedor">
                 <div id="imagen" class="division">
-                <img class="espaciado" id="img" src="data:image/png;base64,#{controladorProducto.convertImg(1)}"></img>
+                    <img class="espaciado" id="img" src="data:image/png;base64,#{controladorProducto.convertImg(controladorProducto.producto)}"></img>
                 
                 </div>
                 <div id="datos"  class="division">
                     <label ><h2 class="titulos">Nombre</h2></label>
-                    <label><h3>#{controladorProducto.findProducto(1).nombre}</h3></label>
+                    <label><h3>#{controladorProducto.findProducto(controladorProducto.producto).nombre}</h3></label>
                     <br/>
                     <label ><h2 class="titulos">Descripción</h2></label>
-                    <label><h3>#{controladorProducto.findProducto(1).descripcion}</h3></label> 
+                    <label><h3>#{controladorProducto.findProducto(controladorProducto.producto).descripcion}</h3></label> 
                     
                     <label ><h2 class="titulos">Elige el método de envío que más te convenga</h2></label>
                     <h:form>

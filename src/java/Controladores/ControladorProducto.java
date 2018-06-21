@@ -29,7 +29,7 @@ import javax.persistence.Query;
 @SessionScoped
 public class ControladorProducto implements Serializable{
     private Producto producto;
-    private String categoriaAMostrar = "Todas";
+    private int categoriaAMostrar = 0;
       private String usuario="";
 
     @EJB
@@ -43,7 +43,7 @@ public class ControladorProducto implements Serializable{
         return fachada;
     }
     
-    public void setCategoriaAMostrar(String categoria) {
+    public void setCategoriaAMostrar(int categoria) {
         categoriaAMostrar = categoria;
     }
     
@@ -53,25 +53,36 @@ public class ControladorProducto implements Serializable{
         }
         return producto;
     }
-    
+    public String setProducto(Producto prod) {
+        producto = prod;
+        return "detalleProducto.xhtml";
+    }
     public void crearProducto() {
         getFachada().create(producto);
     }
     
     public List<Producto> getProductos() {
         List<Producto> productos = getFachada().findAll();
-        if (categoriaAMostrar.equals("Todas")) {
-            return productos;
+        List<Producto> resultado = new ArrayList<>();
+        if (categoriaAMostrar == 0) {            
+            productos.forEach(prod->{
+                if (!prod.isIsRegalado()) {
+                    resultado.add(prod);
+                }
+            });
         } else {
-            Query consultaPkCategoria = getFachada().getEntityManager().createQuery("Select a.pkcategoria From Categoria a Where a.nombre = :categoria");
-            consultaPkCategoria.setParameter("categoria", categoriaAMostrar);
-            int fkCategoria = (int)consultaPkCategoria.getSingleResult();
-            
-            Query consulta = getFachada().getEntityManager().createQuery("Select a From Producto a Where a.fkcategoria = :categoria");
-            consulta.setParameter("categoria", fkCategoria);
-            
-            return (List<Producto>)consulta.getResultList();
+            productos.forEach(prod -> {
+                if (prod.getFkcategoria().getPkcategoria() == categoriaAMostrar && !prod.isIsRegalado()) {
+                    resultado.add(prod);
+                }
+            });
         }
+        
+        
+        
+        
+        
+        return resultado;
     }
     public Producto findProducto(int pk)
     {

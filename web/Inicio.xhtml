@@ -70,7 +70,32 @@
             	font-size: 15px;
             	margin-top: 0px;
             }
-
+            #ImagenProducto
+            {
+                max-width: 300px;
+                max-height: 40%;
+                margin: 10px;
+            }
+            #img
+            {
+                max-width: inherit;
+                max-height: inherit;
+            }
+            #DatosProducto
+            {
+                max-width: fit-content;
+                max-height: fit-content;
+                text-decoration: none;
+            }
+            #Producto {
+                display: -webkit-box;
+                width: 100%;
+            }
+            .textoProducto{
+                text-decoration: none;
+                font-size: 30px;
+                font-family: Arial;
+            }
 	</style>
     </h:head>
     <h:body>
@@ -78,7 +103,23 @@
 		<font face="arial" id="titulo">ARTICULOS</font>
 		<hr id="linea"></hr><br></br>
                 <div id="articulos">
-                   
+                    <h:dataTable value="#{controladorProducto.productos}" var="producto">
+                        <h:column>
+                            <h:form>
+                                <h:outputLink value="#{controladorProducto.setProducto(producto)}">
+                                    <div id="Producto">
+                                        <div id = "ImagenProducto">
+                                            <img id="img" src="data:image/png;base64,#{controladorProducto.convertImg(producto.pkproducto)}"></img>
+                                        </div>
+                                        <div id= "DatosProducto">
+                                            <h:outputText class="textoProducto" style="padding-left: 20px;" value="#{producto.nombre}"/><br/>
+                                            <h:outputText class="textoProducto" style="padding-left: 20px;" value="#{producto.descripcionbreve}"/><br/>  
+                                        </div>
+                                    </div>
+                                </h:outputLink>
+                            </h:form>
+                        </h:column>     
+                    </h:dataTable>  
                 </div>
 		<div id = "categorias" >
 			<font face="arial" id="subtitulo">CATEGORIAS</font>
@@ -86,14 +127,14 @@
 				<font face="arial" id="textos">
                                      <div>
                                          <h:form>
-                                         <h:dataTable value="#{controladorCategoria.categorias}" var="categoria">
-                                            <h:column>
-                                                <f:facet name="header">
-                                                </f:facet>
-                                                <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.nombre)}" /> 
-                                            </h:column>     
-                                        </h:dataTable>  
-                                         </h:form>
+                                            <h:dataTable value="#{controladorCategoria.categorias}" var="categoria">
+                                               <h:column>
+                                                   <f:facet name="header">
+                                                   </f:facet>
+                                                   <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.pkcategoria)}" /> 
+                                               </h:column>     
+                                           </h:dataTable>  
+                                        </h:form>
                                     </div>  
 				</font>
                         </br>

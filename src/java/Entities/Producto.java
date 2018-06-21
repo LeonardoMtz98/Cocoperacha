@@ -69,7 +69,10 @@ public class Producto implements Serializable {
     @JoinColumn(name = "fkcategoria", referencedColumnName = "pkcategoria")
     @ManyToOne(optional = false)
     private Categoria fkcategoria;
-
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "isRegalado")
+    boolean isRegalado;
     public Producto() {
     }
 
@@ -149,6 +152,14 @@ public class Producto implements Serializable {
         this.fkcategoria = fkcategoria;
     }
 
+    public boolean isIsRegalado() {
+        return isRegalado;
+    }
+
+    public void setIsRegalado(boolean isRegalado) {
+        this.isRegalado = isRegalado;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
