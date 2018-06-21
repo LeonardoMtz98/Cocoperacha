@@ -97,8 +97,6 @@ and open the template in the editor.
         <h1 class="Titulo">Mis Articulos</h1>
         <div class="contGeneralArticulos">
             <div class="contColumn2 ">
-                
-                <!---->
                 <div class="ScrollMasivo">
                     <div class = "contListaProductos">
                         <div class= "contImg">
@@ -152,13 +150,12 @@ and open the template in the editor.
             <div class="contColumn2">
                 <div id="Formulario">
              <center>  <h2> Agregar </h2> </center>
-        <h:form>
-            <h:inputHidden value="fdanycast@gmail.com"/>
+             <h:form>
              <div id="Cuadro">
                 <h:panelGrid columns="2" 
                          cellpadding = "1" cellspacing = "30">
                 <h:outputLabel value="Correo "/>
-                <h:inputText value="#{controladorProducto.producto.fkusuario}"/>
+                <h:inputHidden value="#{controladorProducto.producto.fkusuario = controladorUsuario.usuarioLoggeado}"/>
                 <h:outputLabel value="Nombre "/>
                 <h:inputText value="#{controladorProducto.producto.nombre}"/>
                 <h:outputLabel value="Descripción Breve "/>
@@ -166,8 +163,8 @@ and open the template in the editor.
                 <h:outputLabel value="Descripción"/>
                 <h:inputTextarea class="area" value="#{controladorProducto.producto.descripcion}"/>
                 <h:outputLabel value="Categoria"/>
-                <h:selectOneMenu value="#{controladorCategoria.buscadas}">
-                    <f:selectItems value="#{controladorCategoria.categorias}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.pkcategoria}"/>
+                <h:selectOneMenu value="#{controladorProducto.producto.fkcategoria}">
+                    <f:selectItems value="#{controladorCategoria.categorias}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria}"/>
                 </h:selectOneMenu>
                 
                 
