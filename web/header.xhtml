@@ -125,7 +125,7 @@ and open the template in the editor.
                 <li class="col12">
                     <div >
                         <h:link outcome="index">
-                            <h1>Cocoperacha</h1>    
+                            <h1>Cocoperacha #{controladorUsuario.sesionIniciada}</h1>    
                         </h:link>
                         
                     </div>
@@ -139,7 +139,7 @@ and open the template in the editor.
                             <h:outputLabel value="Correo: "/>
                             <h:inputText value="#{controladorUsuario.usuario.correo}"/>
                             <h:outputLabel value="Contraseña: "/>
-                            <h:inputSecret  value="#{controladorUsuario.usuario.nickname}"/>
+                            <h:inputSecret  value="#{controladorUsuario.usuario.password}"/>
                             <h:commandButton class = "boton" action="#{controladorUsuario.logIn()}" value="Iniciar Sesión"/>
                         </h:form>
                         <h:link class= "enlaceRegistro" outcome="registro" value="Registrate"/>
@@ -159,7 +159,7 @@ and open the template in the editor.
                                     <h:form class ="FormularioSalir">
                                     <!--<h:commandButton  action="" value="Cerrar Sesión"/>-->    
                                     <!-- Llamado a metodo de cerrar sesion-->
-                                    <h:commandButton  action="index.html" value="Cerrar Sesión"/>
+                                    <h:commandButton  action="#{controladorUsuario.logOut()}" value="Cerrar Sesión"/>
                                     </h:form>
                                 </li>
                             </ul>

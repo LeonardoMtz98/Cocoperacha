@@ -58,7 +58,7 @@ public class ControladorUsuario implements Serializable{
         return sesionIniciada;
     }
     
-    public boolean logIn() {
+    public String logIn() {
         Iterator<Usuario> itrUsuarios = getFachada().findAll().iterator();
         while (itrUsuarios.hasNext()) {
             Usuario temp = itrUsuarios.next();
@@ -66,17 +66,18 @@ public class ControladorUsuario implements Serializable{
                 if (temp.getPassword().equals(usuario.getPassword())) {
                     usuarioLogeado = temp;
                     usuario = null;
-                    sesionIniciada = true;
-                    return true;
+                    sesionIniciada = true;     
+                    return null;
                 }
-            }
-        }
-        return false;
+            }            
+        }    
+        return "index.html";
     }
     
-    public void logOut() {
+    public String logOut() {
         sesionIniciada = false;
         usuarioLogeado = null;
+        return "index.html";
     }
     
     public void crearUsuario() {
