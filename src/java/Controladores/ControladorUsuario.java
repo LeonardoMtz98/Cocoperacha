@@ -90,27 +90,59 @@ public class ControladorUsuario implements Serializable{
     
     public List<Usuario> getTopUsuarios() {
         List<Usuario> usuariosTop = new ArrayList<>();
-        usuariosTop.add(new Usuario());
-        usuariosTop.add(new Usuario());
-        usuariosTop.add(new Usuario());
-        long top1 = 0, top2 = 0, top3 = 0;
+        List<Usuario> listaFinal = new ArrayList<>();
+        long cantidad = 0;
+        
+        Query consultaNum = getFachada().getEntityManager().createQuery("SELECT COUNT(a) FROM Usuario a");
+        cantidad = (long)consultaNum.getSingleResult();
+        
+        int cant = Integer.parseInt(String.valueOf(cantidad));
+        int tamanio = 10;
+        
+        long[] top = new long[cant];
+        
+        for(int y=0; y<cantidad; y++) usuariosTop.add(new Usuario());
+        
+        if(cant > 10) tamanio = 10;
+        else tamanio = cant;
+        
+        for(int y=0; y<10; y++) listaFinal.add(new Usuario());
+        
         List<Usuario> usuarios = getUsuarios();
-        usuarios.forEach(us -> {
+        usuarios.forEach(us ->{
             Query consultaTrans = getFachada().getEntityManager().createQuery("SELECT COUNT(a) FROM Transaccion a WHERE a.fkproducto.fkusuario.correo = :us AND a.elegido = 1");
             consultaTrans.setParameter("us", us.getCorreo());
             long cantidadTrans = (long)consultaTrans.getSingleResult();
-            if (cantidadTrans > top1) {
-                usuariosTop.set(2, usuariosTop.get(1));
-                usuariosTop.set(1, usuariosTop.get(0));
-                usuariosTop.set(0, us);
-            }else if (cantidadTrans > top2) {
-                usuariosTop.set(2, usuariosTop.get(1));
-                usuariosTop.set(1, us);
-            }else if (cantidadTrans > top3) {
-                usuariosTop.set(2, us);
+            
+            for(int x=0; x<usuariosTop.size(); x++){
+                if(top[x] == 0){
+                    if(cantidadTrans != 0){
+                        usuariosTop.set(x, us);
+                        top[x] = cantidadTrans;
+                    }
+                    break;
+                }
             }
         });
-        return usuariosTop;
+        
+        for(int i = 0; i < top.length - 1; i++){
+            for(int j = 0; j < top.length - 1; j++){
+                if (top[j] < top[j + 1]){
+                    long tmp = top[j+1];
+                    top[j+1] = top[j];
+                    top[j] = tmp;
+                    Usuario tempo = usuariosTop.get(j+1);
+                    usuariosTop.set(j+1, usuariosTop.get(j)); 
+                    usuariosTop.set(j, tempo);
+                }
+            }
+        }
+        
+        for(int i = 0; i < tamanio; i++){
+            listaFinal.set(i, usuariosTop.get(i));
+        }
+        
+        return listaFinal;
     }
 
 }
