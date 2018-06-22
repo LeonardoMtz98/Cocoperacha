@@ -7,6 +7,7 @@ package Controladores;
 
 import Entities.Categoria;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -45,7 +46,9 @@ public class ControladorCategoria implements Serializable{
     }
     
     public List<Categoria> getCategorias() {
-        return getFachada().findAll();
+        List<Categoria> res = getFachada().findAll();
+        res.add(0, new Categoria(0, "Todas"));
+        return res;
     }
     
     public List<Categoria> getTopCategorias() {
