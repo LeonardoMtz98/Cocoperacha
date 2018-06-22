@@ -28,7 +28,7 @@ import javax.persistence.Query;
 public class ControladorTransaccion implements Serializable{
     private Transaccion transaccion;
     private int pkEnvioTrans;
-    private int productoId;
+    private int transACalificar;
     private int Ganador;
     @EJB
     @ViewScoped
@@ -89,10 +89,18 @@ public class ControladorTransaccion implements Serializable{
         });
         return resultado;
     }
-    
-    public void setProductoId(int productoId){
-        this.productoId=productoId;
+
+    public int getTransACalificar() {
+        transaccion = getFachada().find(transACalificar);
+        return transACalificar;
     }
+
+    public void setTransACalificar(int transACalificar) {
+        transaccion = getFachada().find(transACalificar);
+        this.transACalificar = transACalificar;
+    }
+    
+    
     
     public List<Transaccion> ListaInteresados(Producto prod){
        
@@ -149,6 +157,10 @@ public class ControladorTransaccion implements Serializable{
     }
     public void guardarTransaccion() {
         
+        getFachada().edit(transaccion);
+    }
+    
+    public void calificarTrans() {
         getFachada().edit(transaccion);
     }
 }

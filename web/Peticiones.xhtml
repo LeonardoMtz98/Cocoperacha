@@ -153,8 +153,8 @@
                 <font face="arial" id="subtitulo">CALIFICA EL PRODUCTO</font>
                 <h:form>
                     <hr id="linea2"></hr><br></br>
-                    <h:selectOneMenu value="#{controladorTransaccion.transaccion}">
-                        <f:selectItems value="#{controladorTransaccion.getTransaccionesGanadas(controladorUsuario.usuarioLoggeado)}" var="trans" itemValue="#{trans}" itemLabel="#{trans.fkproducto.nombre}"/>
+                    <h:selectOneMenu value="#{controladorTransaccion.transACalificar}">
+                        <f:selectItems value="#{controladorTransaccion.getTransaccionesGanadas(controladorUsuario.usuarioLoggeado)}" var="trans" itemValue="#{trans.pktransaccion}" itemLabel="#{trans.fkproducto.nombre}"/>
                     </h:selectOneMenu>
                     <br/><br/><font face="arial">Comentarios:<br></br></font>
                     <div>
@@ -164,7 +164,7 @@
                             <f:selectItem itemValue="false" itemLabel="No me gustó"/>
                             <f:selectItem itemValue="true" itemLabel="Me gustó"/>
                         </h:selectOneRadio>
-                        <h:commandButton action="#{controladorTransaccion.guardarTransaccion()}"/>
+                        <h:commandButton action="#{controladorTransaccion.guardarTransaccion()}" value="Calificar"/>
                     </div>
                 </h:form>            
 		</div>

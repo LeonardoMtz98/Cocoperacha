@@ -77,7 +77,7 @@ public class ControladorUsuario implements Serializable{
     public String logOut() {
         sesionIniciada = false;
         usuarioLogeado = null;
-        return "index?faces-redirect=true";
+        return "index.xhtml?faces-redirect=true";
     }
     
     public void crearUsuario() {
