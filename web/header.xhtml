@@ -125,7 +125,7 @@ and open the template in the editor.
                 <li class="col12">
                     <div >
                         <h:link outcome="index">
-                            <h1>Cocoperacha #{controladorUsuario.sesionIniciada}</h1>    
+                            <h1>Cocoperacha</h1>    
                         </h:link>
                         
                     </div>
@@ -148,10 +148,13 @@ and open the template in the editor.
                         <!-- Verificar si el usuario está logueado-->
                         <c:if test="#{controladorUsuario.sesionIniciada}">
                             <ul class="Lista_Botones">
-                                <li> <h:outputLabel value="Usuario"> </h:outputLabel> </li>
+                                <li> 
+                                    <h:outputLabel value="Usuario: "></h:outputLabel> 
+                                    <h:outputText value="#{controladorUsuario.usuarioLoggeado.nickname}"/>
+                                </li>
                                 
                                 <!-- Verificar si es coordinador-->
-                                <c:if test="#{true}">
+                                <c:if test="#{!controladorUsuario.usuarioLoggeado.administrador}">
                                     <li> <h:link outcome="EjemploAccesoADatos" value="Peticiones"/></li>
                                     <li> <h:link outcome="misArticulos" value="Articulos"/> </li>
                                 </c:if>

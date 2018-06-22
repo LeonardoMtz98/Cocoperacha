@@ -55,7 +55,7 @@ public class ControladorProducto implements Serializable{
     }
     public String setProducto(Producto prod) {
         producto = prod;
-        return "detalleProducto.xhtml";
+        return "faces/detalleProducto.xhtml";
     }
     public void crearProducto() {
         getFachada().create(producto);

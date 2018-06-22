@@ -6,22 +6,22 @@
     <h:head>
         <title>Cocoperacha</title>
         <style>
+           
             div#general{
                 margin: auto;
                 margin-top: 50px;
-                width: 1280px;
-                height: 960px;
+                width: 80%; 
+                height: 100%;
                 padding: 5px;
                 background-color: white;
              }
             div#articulos{
                 width: 66.5%;
-                height: 400px;
+                height: 100%;
                 background-color: white;
-                overflow: scroll;
-                overflow-x:hidden;
                 border:1px solid black;
                 float: left;
+                min-height: 1000px;
             }
             div#categorias{
                 margin-left: 45px;
@@ -30,7 +30,7 @@
                 height: 200px;
                 background-color: white;
                 display: inline-block;
-                float: left;    
+                float: right;    
             }
             div#masbuscados{
                 margin-left: 45px;
@@ -40,13 +40,12 @@
                 height: 200px;
                 background-color: white;
                 display: inline-block;
-                float: bottom;
+                float: right;
             }
             div#buscados{
-                margin-left: 10px;
-                padding: 80px;
+                margin-left: 20px;
                 padding-top:  30px;
-                width: 300px;
+                max-width: 300px;
                 height: 50px;
                 background-color: white;
                 display: inline-block;
@@ -90,6 +89,7 @@
             #Producto {
                 display: -webkit-box;
                 width: 100%;
+                margin: 20px;
             }
             .textoProducto{
                 text-decoration: none;
@@ -100,72 +100,72 @@
     </h:head>
     <h:body>
         <div id="general" >
-		<font face="arial" id="titulo">ARTICULOS</font>
-		<hr id="linea"></hr><br></br>
-                <div id="articulos">
-                    <h:dataTable value="#{controladorProducto.productos}" var="producto">
-                        <h:column>
-                            <h:form>
-                                <h:outputLink value="#{controladorProducto.setProducto(producto)}">
-                                    <div id="Producto">
-                                        <div id = "ImagenProducto">
-                                            <img id="img" src="data:image/png;base64,#{controladorProducto.convertImg(producto.pkproducto)}"></img>
-                                        </div>
-                                        <div id= "DatosProducto">
-                                            <h:outputText class="textoProducto" style="padding-left: 20px;" value="#{producto.nombre}"/><br/>
-                                            <h:outputText class="textoProducto" style="padding-left: 20px;" value="#{producto.descripcionbreve}"/><br/>  
-                                        </div>
+            <font face="arial" id="titulo">ARTICULOS</font>
+            <hr id="linea"></hr><br></br>
+            <div id="articulos">
+                <h:dataTable value="#{controladorProducto.productos}" var="producto">
+                    <h:column>
+                        <h:form>
+                            <h:commandLink action="#{controladorProducto.setProducto(producto)}">
+                                <div id="Producto">
+                                    <div id = "ImagenProducto">
+                                        <img id="img" src="data:image/png;base64,#{controladorProducto.convertImg(producto.pkproducto)}"></img>
                                     </div>
-                                </h:outputLink>
-                            </h:form>
-                        </h:column>     
-                    </h:dataTable>  
-                </div>
-		<div id = "categorias" >
-			<font face="arial" id="subtitulo">CATEGORIAS</font>
-			<hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
-				<font face="arial" id="textos">
-                                     <div>
-                                         <h:form>
-                                            <h:dataTable value="#{controladorCategoria.categorias}" var="categoria">
-                                               <h:column>
-                                                   <f:facet name="header">
-                                                   </f:facet>
-                                                   <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.pkcategoria)}" /> 
-                                               </h:column>     
-                                           </h:dataTable>  
-                                        </h:form>
-                                    </div>  
-				</font>
-                        </br>
-		</div>
-                <div id = "masbuscados">
-                    <font face="arial" id="subtitulo">TOP MAS BUSCADAS</font>
+                                    <div id= "DatosProducto">
+                                        <h:outputText class="textoProducto" style="padding-left: 20px;" value="#{producto.nombre}"/><br/>
+                                        <h:outputText class="textoProducto" style="padding-left: 20px;" value="#{producto.descripcionbreve}"/><br/>  
+                                    </div>
+                                </div>
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>     
+                </h:dataTable>  
+            </div>
+            <div id = "categorias" >
+                    <font face="arial" id="subtitulo">CATEGORIAS</font>
                     <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
-                        <font face="arial" id="textos">
-                            <div>
-                                <h:dataTable value="#{controladorCategoria.topCategorias}" var="categoria">
-                                    <h:column>
-                                        <f:facet name="header">
-                                        </f:facet>                     
-                                        <h:outputText value="#{categoria.nombre}"/>      
-                                    </h:column>     
-                                </h:dataTable>  
-                           </div>  
-                        </font>
+                            <font face="arial" id="textos">
+                                 <div>
+                                     <h:form>
+                                        <h:dataTable value="#{controladorCategoria.categorias}" var="categoria">
+                                           <h:column>
+                                               <f:facet name="header">
+                                               </f:facet>
+                                               <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.pkcategoria)}" /> 
+                                           </h:column>     
+                                       </h:dataTable>  
+                                    </h:form>
+                                </div>  
+                            </font>
                     </br>
-                </div>
-                <div id = "buscados">
-                    <font face="arial" id="subtitulo">¿BUSCAS ALGO?</font>
-                    <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
-                    <h:form>
-                        <h:selectManyCheckbox value="#{controladorCategoria.buscadas}" layout="pageDirection">
-                            <f:selectItems value="#{controladorCategoria.categorias}" var = "categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.pkcategoria}" />
-                        </h:selectManyCheckbox>
-                        <h:commandButton action="#{controladorCategoria.seBusca()}" value="ok"/>
-                    </h:form>
-                    </br>
-                </div>
+            </div>
+            <div id = "masbuscados">
+                <font face="arial" id="subtitulo">TOP MAS BUSCADAS</font>
+                <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
+                    <font face="arial" id="textos">
+                        <div>
+                            <h:dataTable value="#{controladorCategoria.topCategorias}" var="categoria">
+                                <h:column>
+                                    <f:facet name="header">
+                                    </f:facet>                     
+                                    <h:outputText value="#{categoria.nombre}"/>      
+                                </h:column>     
+                            </h:dataTable>  
+                       </div>  
+                    </font>
+                </br>
+            </div>
+            <div id = "buscados">
+                <font face="arial" id="subtitulo">¿BUSCAS ALGO?</font>
+                <hr style="height: 3px; width: 100%; margin-left: 0%; background-color: lightcoral;"></hr><br>
+                <h:form>
+                    <h:selectManyCheckbox value="#{controladorCategoria.buscadas}" layout="pageDirection">
+                        <f:selectItems value="#{controladorCategoria.categorias}" var = "categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.pkcategoria}" />
+                    </h:selectManyCheckbox>
+                    <h:commandButton action="#{controladorCategoria.seBusca()}" value="ok"/>
+                </h:form>
+                </br>
+            </div>
 	</div>
     </h:body>
 </html>

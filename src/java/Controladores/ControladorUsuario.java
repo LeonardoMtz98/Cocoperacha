@@ -71,13 +71,13 @@ public class ControladorUsuario implements Serializable{
                 }
             }            
         }    
-        return "index.html";
+        return "index";
     }
     
     public String logOut() {
         sesionIniciada = false;
         usuarioLogeado = null;
-        return "index.html";
+        return "index?faces-redirect=true";
     }
     
     public void crearUsuario() {
