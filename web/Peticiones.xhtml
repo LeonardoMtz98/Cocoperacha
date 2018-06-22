@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <link rel="stylesheet" type="text/css" href="Estilos/font-awesome.css"/>
         <title>Cocoperacha</title>
@@ -108,33 +109,38 @@
 	</style>	
     </h:head>
     <h:body>
+        <ui:include src="header.xhtml"/>
         <div id="general">
             <font face="arial" id="titulo">PETICIONES</font>
             <hr id="linea"></hr><br/>
                 <div id="peticiones">    
                    
-                        <h:dataTable value="#{controladorTransaccion.transaccions}" var="transaccion" border="1" id="Elementos">
+                    <h:dataTable value="#{controladorTransaccion.getMisTransacciones(controladorUsuario.usuarioLoggeado)}" var="transaccion" border="1" id="Elementos">
                             <h:column>
                                 <div style="width: 100%;height: 100px;">
                                     <div id="Imagen">
                                         <img id="image" src="data:image/png;base64,#{controladorProducto.convertImg(transaccion.fkproducto.pkproducto)}"></img>
+                                        
                                     </div>
                                     <h:outputLabel rendered="#{transaccion.elegido == 0}">
                                         <div id="DatosRojo">
                                             <h:outputLabel style="font-variant:bold; font-size: 160%" value="#{transaccion.fkproducto.nombre}"/> <br/>
-                                            <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/>
+                                            <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/><br/>
+                                            <h:outputLabel value="#{transaccion.elegido}"/>
                                         </div>
                                     </h:outputLabel>
                                     <h:outputLabel rendered="#{transaccion.elegido == 1}">
                                         <div id="DatosVerde">
                                             <h:outputLabel style="font-variant:bold; font-size: 160%" value="#{transaccion.fkproducto.nombre}"/> <br/>
-                                            <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/>
+                                            <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/><br/>
+                                            <h:outputLabel value="#{transaccion.elegido}"/>
                                         </div>
                                     </h:outputLabel>
-                                    <h:outputLabel rendered="#{transaccion.elegido == 2}">
+                                    <h:outputLabel rendered="#{transaccion.elegido == null}">
                                         <div id="DatosAmarillo">
                                             <h:outputLabel style="font-variant:bold; font-size: 160%" value="#{transaccion.fkproducto.nombre}"/> <br/>
                                             <h:outputLabel value="#{transaccion.fkproducto.descripcionbreve}"/>
+                                            <h:outputLabel value="#{transaccion.elegido}"/><br/>
                                             <h:outputLabel value="#{transaccion.elegido}"/>
                                         </div>
                                     </h:outputLabel>                                    
@@ -147,16 +153,18 @@
                 <font face="arial" id="subtitulo">CALIFICA EL PRODUCTO</font>
                 <h:form>
                     <hr id="linea2"></hr><br></br>
-                    <h:selectOneMenu value="#{controladorTransaccion.getTransaccionesGanadas(controladorUsuario.usuarioLoggeado)}">
-                        <f:selectItems itemValue="1"/>
+                    <h:selectOneMenu value="#{controladorTransaccion.transaccion}">
+                        <f:selectItems value="#{controladorTransaccion.getTransaccionesGanadas(controladorUsuario.usuarioLoggeado)}" var="trans" itemValue="#{trans}" itemLabel="#{trans.fkproducto.nombre}"/>
                     </h:selectOneMenu>
                     <br/><br/><font face="arial">Comentarios:<br></br></font>
                     <div>
-                        <h:inputTextarea style="margin: auto; width: 220px; height: 100px; resize: none;" value="#{controladorProducto.misProductos}"/> 
+                        <h:inputTextarea style="margin: auto; width: 220px; height: 100px; resize: none;" value="#{controladorTransaccion.transaccion.comentario}"/> 
                         <br/><br/>
-                        <input type="checkbox" name="megusta" value="OFF">Me Gusta</input><br/>
-                        <input type="checkbox" name="nomegusta" value="OFF">No Me Gusta</input><br/><br/><br/>
-                        <input type="submit" name="enviar"/>
+                        <h:selectOneRadio value="#{controladorTransaccion.transaccion.megusta}">
+                            <f:selectItem itemValue="false" itemLabel="No me gustó"/>
+                            <f:selectItem itemValue="true" itemLabel="Me gustó"/>
+                        </h:selectOneRadio>
+                        <h:commandButton action="#{controladorTransaccion.guardarTransaccion()}"/>
                     </div>
                 </h:form>            
 		</div>

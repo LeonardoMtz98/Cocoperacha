@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
         <style>
@@ -37,7 +38,7 @@
                 max-width: 50%;
                 
             }
-           input[type=submit]
+           .btQuiero
             {
                 background:  #067A67;
                 color: white;
@@ -49,7 +50,7 @@
              h4{
                 margin:  15px;
             }
-            input[type=submit]:hover{
+            .btQuiero:hover{
                 background:  #45b39d;
                 cursor: pointer;
             }
@@ -82,14 +83,17 @@
                     <label ><h2 class="titulos">Elige el método de envío que más te convenga</h2></label>
                     <h:form>
                     <div class="contenido">
-                        <h:inputHidden value="#{controladorTransaccion.transaccion.fkproducto = controladorProducto.producto}" />
-                        <h:inputHidden value="#{controladorTransaccion.transaccion.fkusuariosolicitante = controladorUsuario.usuarioLoggeado}"/>
-                        <h:selectOneRadio  value="#{controladorTransaccion.transaccion.fkenvio}"> 
-                            <f:selectItems value="#{controladorEnvio.envios}"  var="envio" itemLabel="#{envio.nombre}" itemValue="#{envio}"/>
+                        <h:selectOneRadio  value="#{controladorTransaccion.envioTrans}"> 
+                            <f:selectItems value="#{controladorEnvio.envios}"  var="envio" itemLabel="#{envio.nombre}" itemValue="#{envio.pkenvio}"/>
                         </h:selectOneRadio>                       
                      </div> 
-                    <br/>                    
-                        <h:commandButton  action="#{controladorTransaccion.crearTransaccion()}" value="¡Lo quiero!"/>                    
+                    <br/>   
+                    <c:if test="#{controladorUsuario.sesionIniciada}">
+                        <h:commandButton class="btQuiero" action="#{controladorTransaccion.crearTransaccion(controladorProducto.producto, controladorUsuario.usuarioLoggeado)}" value="¡Lo quiero!"/>                    
+                    </c:if>
+                    <c:if test="#{!controladorUsuario.sesionIniciada}">
+                        <input class="btQuiero" type="button" value="Inicia sesion para pedir el articulo"/>                    
+                    </c:if>
                     </h:form>                      
                 </div>
             </div>

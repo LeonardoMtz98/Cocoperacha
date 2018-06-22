@@ -155,14 +155,14 @@ and open the template in the editor.
                                 
                                 <!-- Verificar si es coordinador-->
                                 <c:if test="#{!controladorUsuario.usuarioLoggeado.administrador}">
-                                    <li> <h:link outcome="EjemploAccesoADatos" value="Peticiones"/></li>
+                                    <li> <h:link outcome="Peticiones?faces-redirect=true" value="Peticiones"/></li>
                                     <li> <h:link outcome="misArticulos" value="Articulos"/> </li>
                                 </c:if>
                                 <li> 
                                     <h:form class ="FormularioSalir">
                                     <!--<h:commandButton  action="" value="Cerrar Sesión"/>-->    
                                     <!-- Llamado a metodo de cerrar sesion-->
-                                    <h:commandButton  action="#{controladorUsuario.logOut()}" value="Cerrar Sesión"/>
+                                    <h:commandButton class="boton" action="#{controladorUsuario.logOut()}" value="Cerrar Sesión"/>
                                     </h:form>
                                 </li>
                             </ul>

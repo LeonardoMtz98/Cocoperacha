@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,6 +38,7 @@ public class Transaccion implements Serializable {
     @Column(name = "pktransaccion")
     private Integer pktransaccion;
     @Column(name = "Elegido")
+    @Basic(fetch = FetchType.EAGER)
     private Integer elegido;
     @Column(name = "megusta")
     private Boolean megusta;
@@ -45,13 +47,13 @@ public class Transaccion implements Serializable {
     @Column(name = "comentario")
     private String comentario;
     @JoinColumn(name = "fkenvio", referencedColumnName = "pkenvio")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Envio fkenvio;
     @JoinColumn(name = "fkusuariosolicitante", referencedColumnName = "correo")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Usuario fkusuariosolicitante;
     @JoinColumn(name = "fkproducto", referencedColumnName = "pkproducto")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Producto fkproducto;
 
     public Transaccion() {

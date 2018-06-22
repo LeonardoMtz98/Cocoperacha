@@ -96,6 +96,10 @@
                 font-size: 30px;
                 font-family: Arial;
             }
+            #articulos a{
+                text-decoration: none;
+                color: black;
+            }
 	</style>
     </h:head>
     <h:body>
@@ -103,7 +107,7 @@
             <font face="arial" id="titulo">ARTICULOS</font>
             <hr id="linea"></hr><br></br>
             <div id="articulos">
-                <h:dataTable value="#{controladorProducto.productos}" var="producto">
+                <h:dataTable id="tablaArts" value="#{controladorProducto.productos}" var="producto">
                     <h:column>
                         <h:form>
                             <h:commandLink action="#{controladorProducto.setProducto(producto)}">
@@ -131,7 +135,9 @@
                                            <h:column>
                                                <f:facet name="header">
                                                </f:facet>
-                                               <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.pkcategoria)}" /> 
+                                               <h:commandLink value = "#{categoria.nombre} " action = "#{controladorProducto.setCategoriaAMostrar(categoria.pkcategoria)}">
+                                                   <f:ajax render="@this tablaArts" execute="@form"/>
+                                               </h:commandLink> 
                                            </h:column>     
                                        </h:dataTable>  
                                     </h:form>

@@ -9,15 +9,19 @@ package Controladores;
 
 import Entities.Categoria;
 import Entities.Producto;
+import Entities.Usuario;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.Query;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
 
 
@@ -30,8 +34,9 @@ import javax.persistence.Query;
 public class ControladorProducto implements Serializable{
     private Producto producto;
     private int categoriaAMostrar = 0;
-      private String usuario="";
-
+    private String usuario="";
+    private int pkCategoriaProd;
+    private Part imagen;
     @EJB
     private FachadaProducto fachada;
     
@@ -57,8 +62,37 @@ public class ControladorProducto implements Serializable{
         producto = prod;
         return "faces/detalleProducto.xhtml";
     }
+
+    public String setProductoPropio(Producto prod) {
+        producto = prod;
+        return "faces/listaInteresados.xhtml";
+    }
+    
+    public Part getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Part imagen) {
+        this.imagen = imagen;
+    }
+    
+    public int getCategoria() {
+        return pkCategoriaProd;
+    }
+    public void setCategoria(int pkCategoria) {
+        pkCategoriaProd = pkCategoria;
+        producto.setFkcategoria(getFachada().getEntityManager().find(Categoria.class, pkCategoria));
+    }
+    
     public void crearProducto() {
+        try {
+            InputStream is = imagen.getInputStream();            
+            producto.setImagen(IOUtils.toByteArray(is));
+        } catch (IOException ex) {
+            System.out.println("Error al obtener stream de imagen");
+        }
         getFachada().create(producto);
+        producto = null;
     }
     
     public List<Producto> getProductos() {
@@ -76,12 +110,7 @@ public class ControladorProducto implements Serializable{
                     resultado.add(prod);
                 }
             });
-        }
-        
-        
-        
-        
-        
+        } 
         return resultado;
     }
     public Producto findProducto(int pk)
@@ -101,17 +130,10 @@ public class ControladorProducto implements Serializable{
         this.usuario=correo;
     }
     
-    public List<Producto> getMisProductos(){   
-        List<Producto> misProductos = new ArrayList<>();
-        String correo;
-        List<Producto> productos = getFachada().findAll();    
-        for(int i=0;i<productos.size();i++){
-        correo=productos.get(i).getFkusuario().getCorreo();
-            if(correo.equals(this.usuario))
-            misProductos.add(productos.get(i));
-        }
-
-        return misProductos;
+    public List<Producto> getMisProductos(Usuario usuario){
+        Query consulta = getFachada().getEntityManager().createQuery("SELECT a FROM Producto a WHERE a.fkusuario = :usuario");
+        consulta.setParameter("usuario", usuario);
+        return consulta.getResultList();
     }
 
 }
