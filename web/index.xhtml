@@ -12,7 +12,7 @@
             <ui:include src="header.xhtml" />
         </ui:insert>
         <c:if test="#{controladorUsuario.sesionIniciada}">
-            <c:if test="#{controladorUsuario.usuario.administrador}">
+            <c:if test="#{controladorUsuario.usuarioLoggeado.administrador}">
                 <ui:include src="inicioAdministrador.xhtml"/>
             </c:if>
         </c:if>

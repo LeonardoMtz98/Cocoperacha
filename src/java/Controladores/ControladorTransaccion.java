@@ -24,14 +24,14 @@ import javax.persistence.Query;
  * @author Leonardo Martinez
  */
 @Named("controladorTransaccion")
-@ViewScoped
+@SessionScoped
 public class ControladorTransaccion implements Serializable{
     private Transaccion transaccion;
     private int pkEnvioTrans;
     private int transACalificar;
     private int Ganador;
     @EJB
-    @ViewScoped
+    @SessionScoped
     private FachadaTransaccion fachada;
     
     public ControladorTransaccion() {
@@ -41,7 +41,10 @@ public class ControladorTransaccion implements Serializable{
     public FachadaTransaccion getFachada() {
         return fachada;
     }
-    
+    public String goToCorreo(Transaccion trans) {
+        transaccion = trans;
+        return "faces/adminMail.xhtml";
+    }
     public Transaccion getTransaccion() {
         if (transaccion == null) {
             transaccion = new Transaccion();
@@ -75,17 +78,17 @@ public class ControladorTransaccion implements Serializable{
     }
     
     public List<Transaccion> getMisTransacciones(Usuario usuario) {
-        Query consulta = getFachada().getEntityManager().createQuery("SELECT a FROM Transaccion a WHERE a.fkusuariosolicitante = :usuario");
-        consulta.setParameter("usuario", usuario);
-        return consulta.getResultList();
+        return getFachada().findAll();
     }
     
     public List<Transaccion> getTransaccionesCompletas() {
         List<Transaccion> resultado = new ArrayList<>();
         getTransaccions().forEach(trans -> {
-            if (trans.getElegido() == 1) {
+            if (trans.getElegido() != null) {
+                if (trans.getElegido() == 1 ) {
                 resultado.add(trans);
-            }
+                }
+            }            
         });
         return resultado;
     }
